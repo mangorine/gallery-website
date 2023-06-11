@@ -1,6 +1,8 @@
 import {React, useState} from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -8,12 +10,12 @@ import GallerySticker from './GallerySticker'
 
 const Gallery = (props) => {
 
-  //Modal open state
-  const [state, setState] = useState(false);
-  //Current loaded picture in modal
-  const [current, setCurrent] = useState(null);
-  //List of picture in the gallery
-  const pics = ['test1.jpg', 'test2.jpg', 'test3.jpg'];
+    //Modal open state
+    const [state, setState] = useState(false);
+    //Current loaded picture in modal
+    const [current, setCurrent] = useState(null);
+    //List of picture in the gallery
+    const pics = ['test1.jpg', 'test2.jpg', 'test3.jpg'];
 
     //Open image in full screen when vignette is clicked
     const toggleModal = (e, img) => {
@@ -42,10 +44,17 @@ const Gallery = (props) => {
 
     return (
       <div>
-        <GallerySticker img='test1.jpg' modal_func={toggleModal}/>
-        <GallerySticker img='test2.jpg' modal_func={toggleModal}/>
-        <GallerySticker img='test3.jpg' modal_func={toggleModal}/>
-
+        <Row className='g-0'>
+          <Col xs="12" sm="6" md="4" lg="2">
+            <GallerySticker img='test1.jpg' modal_func={toggleModal}/>
+          </Col>
+          <Col xs="12" sm="6" md="4" lg="2">
+          <GallerySticker img='test2.jpg' modal_func={toggleModal}/>
+          </Col>
+          <Col xs="12" sm="6" md="4" lg="2">
+          <GallerySticker img='test3.jpg' modal_func={toggleModal}/>
+          </Col>
+        </Row>
         {state && (
           <div className='pic-modal'>
             <ArrowBackIcon onClick={previousPicture} className='arrow left-arrow'/>

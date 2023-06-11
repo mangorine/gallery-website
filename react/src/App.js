@@ -58,13 +58,8 @@ function App() {
             </a>
         </Col>
         </Row>
-
-        <Row className='g-0'>
-        <Col xs="12" sm="6" md="4" lg="2">
         <Gallery/>
 
-        </Col>
-        </Row>
       </div>
   );
 }
