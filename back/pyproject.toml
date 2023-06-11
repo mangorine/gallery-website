@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "Ponthe Galerie back"
+version = "0.0"
+description = ""
+authors = ["Alexandre Ducorroy"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "4.1.2"
+django-environ = "0.9.0"
+psycopg2 = "2.9.5 "
+djangorestframework = "^3.13.1"
+django-cors-headers = "^3.13.0"
+[tool.poetry.dev-dependencies]
