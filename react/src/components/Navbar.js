@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-
 const CustomNavbar = () => {
     return (
         <Navbar collapseOnSelect expand="lg" className='' variant='dark' bg='dark'>
@@ -16,12 +15,12 @@ const CustomNavbar = () => {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#features">Galeries</Nav.Link>
-                <Nav.Link href="#pricing">Équipe</Nav.Link>
-                <Nav.Link href="#pricing">Matériel</Nav.Link>
+                <Nav.Link href="">Galeries</Nav.Link>
+                <Nav.Link href="">Équipe</Nav.Link>
+                <Nav.Link href="">Matériel</Nav.Link>
               </Nav>
               <Nav>
-                <Nav.Link href="#deets">Connexion</Nav.Link>
+                <Nav.Link href="">Connexion</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
