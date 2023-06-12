@@ -1,7 +1,6 @@
 import {React, useState} from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Col from 'react-bootstrap/Col';
 
 const GallerySticker = (props) => {
     return(

@@ -61,7 +61,7 @@ const Gallery = (props) => {
             <ArrowForwardIcon onClick={nextPicture} className='arrow right-arrow'/>
             <div class="pic-modal-nav">
               <span className='close' onClick={closeModal}>&times;</span>
-              <span><DownloadIcon  className="download"/></span>
+              <span><DownloadIcon className="download"/></span>
             </div>
             <div className='pic-modal-content'>
               <div class="img-browser">
