@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import React, {useState} from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Row from 'react-bootstrap/Row';
@@ -8,7 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import GallerySticker from './GallerySticker'
 
-const Gallery = (props) => {
+export default function Gallery({props}){
 
     //Modal open state
     const [state, setState] = useState(false);
@@ -43,7 +43,7 @@ const Gallery = (props) => {
     };
 
     return (
-      <div>
+      <>
         <Row className='g-0'>
           <Col xs="12" sm="6" md="4" lg="2">
             <GallerySticker img='test1.jpg' modal_func={toggleModal}/>
@@ -71,9 +71,8 @@ const Gallery = (props) => {
           </div>
           )
         }
-      </div>
+      </>
       
       
       );
     }
-export default Gallery;

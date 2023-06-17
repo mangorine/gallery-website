@@ -8,24 +8,32 @@ class Student(models.Model):
         P25 = "025"
     promo = models.IntegerField(blank=False, default=Promotion.P25, choices=Promotion.choices)
 
+#TODO: Create a year model ?
 class Gallery(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(blank=False)
-    description = models.CharField()
+    name = models.CharField(blank=False, max_length=1000)
+    description = models.CharField(max_length=10000)
     date = models.DateField(blank=False)
-    private = models.BooleanField(default=True)
+
+    class Visibility(models.TextChoices):
+        PUBLIC = "publique"
+        SCHOOL = "école"
+        PRIVATE = "privée"
+
+    visibility = models.CharField(choices=Visibility.choices, default=Visibility.PRIVATE, max_length=10)
 
     class Type(models.TextChoices):
         PHOTO = 'photo'
         VIDEO = 'video'
     
-    type = models.CharField(blank=False, default=Type.PHOTO, choices=Type.choices)
+    type = models.CharField(blank=False, default=Type.PHOTO, choices=Type.choices, max_length=10)
 
 class File(models.Model):
     id = models.AutoField(primary_key=True)
-    file_name = models.CharField(blank=False)
-    file_extension = models.CharField(blank=False)
-    file_full_name = models.CharField(blank=False)
+    file_name = models.CharField(blank=False, max_length=1000)
+    file_extension = models.CharField(blank=False, max_length=100)
+    file_full_name = models.CharField(blank=False, max_length=1100)
+    link = models.CharField(max_length=10000)
     gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
 
 
@@ -34,7 +42,7 @@ class Reaction(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
 class Material(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=1000)
     
 """
 class Teams(models.Model):

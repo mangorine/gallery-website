@@ -63,6 +63,8 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 # quicker install as runtime deps are already installed
 RUN poetry install
 WORKDIR /src
+RUN mkdir -p /src/galerie/static/react \
+    && chmod 777 /src/galerie/static/react
 COPY . .
 
 # installation of netcat to check if db is up
