@@ -19,7 +19,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class GallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = Gallery
-        fields = ['id', 'name', 'description', 'date', 'private', 'type']
+        fields = ['id', 'name', 'description', 'date', 'visibility', 'type']
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:

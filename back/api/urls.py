@@ -1,9 +1,12 @@
 from django.urls import path
-
+from api.views import(
+    getRoutes,
+    get_galleries,
+    get_pics
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('test/', views.test),
-    path("accounts/", include("django.contrib.auth.urls")),
-
+    path("", getRoutes),
+    path("galleries/", get_galleries), 
+    path("gallery/pics/", get_pics)
 ]
