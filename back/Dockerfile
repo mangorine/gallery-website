@@ -65,6 +65,8 @@ RUN poetry install
 WORKDIR /src
 RUN mkdir -p /src/galerie/static/react \
     && chmod 777 /src/galerie/static/react
+RUN mkdir -p /src/galerie/media \
+    && chmod 777 /src/galerie/media
 COPY . .
 
 # installation of netcat to check if db is up
