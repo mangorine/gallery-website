@@ -17,6 +17,18 @@ export default function Gallery({props}){
     //List of picture in the gallery
     const pics = ['test1.jpg', 'test2.jpg', 'test3.jpg'];
 
+  
+    fetch('/api/galleries/')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+        },
+        (error) => {
+          
+        }
+      );
+
     //Open image in full screen when vignette is clicked
     const toggleModal = (e, img) => {
       setCurrent(img)

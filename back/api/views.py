@@ -36,7 +36,7 @@ def getRoutes(request):
     return Response(routes)
 
 @login_required
-@api_view(['POST'])
+@api_view(['GET'])
 def get_galleries(request):
     galleries = Gallery.objects.all()
     serializer = GallerySerializer(galleries, many=True)
@@ -48,7 +48,3 @@ def get_pics(request):
     files = File.objects.filter(gallery = request.data['id'])
     serializer = FileSerializer(files, many=True)
     return Response(serializer.data)
-
-
-
-# Create your views here.

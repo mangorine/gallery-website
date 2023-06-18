@@ -34,7 +34,7 @@ class File(models.Model):
     file_extension = models.CharField(blank=False, max_length=100)
     file_full_name = models.CharField(blank=False, max_length=1100)
     link = models.CharField(max_length=10000)
-    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
+    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, default=None)
 
 
 class Reaction(models.Model):
