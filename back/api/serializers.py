@@ -24,7 +24,7 @@ class GallerySerializer(serializers.ModelSerializer):
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ['id', 'file_name', 'file_extension', 'file_full_name', 'gallery']
+        fields = ['id', 'file_name', 'file_extension', 'file_full_name', 'gallery', 'link']
 
 class MaterialSerializer(serializers.ModelSerializer):
     class Meta:

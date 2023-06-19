@@ -7,6 +7,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import GallerySticker from './GallerySticker'
+import Cookies from 'js-cookie';
 
 export default function Gallery({props}){
 
@@ -15,19 +16,41 @@ export default function Gallery({props}){
     //Current loaded picture in modal
     const [current, setCurrent] = useState(null);
     //List of picture in the gallery
-    const pics = ['/media/test2.jpg', '/media/test2.jpg', '/media/test2.jpg'];
+    let pics = [];
 
-  
-    fetch('/api/galleries/')
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-CSRFToken': Cookies.get('csrftoken') },
+      body: JSON.stringify({ id: 1 })
+    };
+
+    let picsList = []
+    const query = async () => {
+      await fetch('/api/gallery/pics/', requestOptions)
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result)
+          for(const pic in result){
+            pics.push(result[pic].link)
+          }
+          pics.forEach((pic, index) =>{
+            picsList.push(<Col key={pic} xs="12" sm="6" md="4" lg="2">
+            <GallerySticker img={pic['url']} modal_func={toggleModal}/>
+          </Col>)
+          })
         },
         (error) => {
-          
+          console.log(error)
         }
-      );
+      )
+
+    }
+
+    query()
+    console.log(picsList)
 
     //Open image in full screen when vignette is clicked
     const toggleModal = (e, img) => {
@@ -54,18 +77,11 @@ export default function Gallery({props}){
       setCurrent(pics[nextId]);
     };
 
+    
     return (
       <>
         <Row className='g-0'>
-          <Col xs="12" sm="6" md="4" lg="2">
-            <GallerySticker img='/media/test2.jpg' modal_func={toggleModal}/>
-          </Col>
-          <Col xs="12" sm="6" md="4" lg="2">
-          <GallerySticker img='/media/test2.jpg' modal_func={toggleModal}/>
-          </Col>
-          <Col xs="12" sm="6" md="4" lg="2">
-          <GallerySticker img='/media/test2.jpg' modal_func={toggleModal}/>
-          </Col>
+          {picsList}
         </Row>
         {state && (
           <div className='pic-modal'>
