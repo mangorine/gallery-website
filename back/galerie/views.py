@@ -6,5 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
 @login_required
-def test(request):
-    return render(request, 'test.html')
+def gallery(request, id=-1):
+    context = {
+        'id': id
+    }
+    return render(request, 'gallery.html', context)

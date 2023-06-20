@@ -22,7 +22,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', views.test),
+    path('gallery/<int:id>', views.gallery),
     path("accounts/", include("django.contrib.auth.urls")),
     path('api/', include('api.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
