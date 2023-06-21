@@ -11,3 +11,7 @@ def gallery(request, id=-1):
         'id': id
     }
     return render(request, 'gallery.html', context)
+
+@login_required
+def galleries(request):
+    return render(request, 'galleries.html')
