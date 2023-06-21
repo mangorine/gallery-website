@@ -8,7 +8,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import GallerySticker from './GallerySticker'
 import Cookies from 'js-cookie';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function Gallery({props}){
 
