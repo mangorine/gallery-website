@@ -25,7 +25,7 @@ export default function Gallery(){
                     galleriesTemp.push(result[pic])
                   }
                   galleriesTemp.forEach((gal, index) =>{
-                    compTemp.push(<GalleryLink key={gal.id} link={'/gallery/' + gal.id} sticker='/media/test3.jpg' title={gal.name}/>)
+                    compTemp.push(<GalleryLink key={gal.id} link={'/gallery/' + gal.id} sticker={gal.sticker_url} title={gal.name}/>)
                   })
                   setGalleriesComp(compTemp)
                 },
