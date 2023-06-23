@@ -18,7 +18,7 @@ services:
       context: back
       dockerfile: Dockerfile
       target: production
-    command: gunicorn upont.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn galerie.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
     depends_on:
@@ -36,17 +36,10 @@ services:
       DB_NAME: $DB_NAME
       DB_USER: $DB_USER
       DB_PASSWORD: $DB_PASSWORD
-      SENDGRID_API_KEY: $SENDGRID_API_KEY
-      ADMIN_EMAIL: $ADMIN_EMAIL
-      DEFAULT_FROM_EMAIL: $DEFAULT_FROM_EMAIL
       SECRET_KEY: $SECRET_KEY
       DEBUG: $DEBUG
       DOMAIN_NAME: $DOMAIN_NAME
       GUNICORN_NB_WORKERS: $GUNICORN_NB_WORKERS
-      SECURE_SSL_REDIRECT: $SECURE_SSL_REDIRECT
-      REMOTE_STATIC_STORAGE: $REMOTE_STATIC_STORAGE
-      FTP_STORAGE_LOCATION: $FTP_STORAGE_LOCATION
-      REMOTE_STATIC_URL: $REMOTE_STATIC_URL
     networks:
       - ping
       - db_link
@@ -58,15 +51,15 @@ services:
     depends_on:
       - back
     volumes:
-      - static_volume:/src/static
-      - media_volume:/src/media
+      - static_volume:/src/galerie/static
+      - media_volume:/src/galerie/media
     restart: always
     networks:
       - nginx_link
   webinstaller:
     build:
-      context: webinstaller
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./webinstaller/Dockerfile
       target: production
     volumes:
       - bundles:/src/galerie/static/react
