@@ -44,6 +44,7 @@ services:
     volumes:
       - ./react/:/app/
       - bundles:/src/galerie/static/react
+
 volumes:
   bundles:
     driver: local

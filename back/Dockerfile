@@ -75,8 +75,38 @@ RUN apt-get update \
     netcat=1.10-46 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./entrypoint.dev.sh /usr/local/bin/
-RUN sed -i 's/\r$//g' /usr/local/bin/entrypoint.dev.sh \
-    && chmod +x /usr/local/bin/entrypoint.dev.sh
+COPY ./entrypoint-dev.sh /usr/local/bin/
+RUN sed -i 's/\r$//g' /usr/local/bin/entrypoint-dev.sh \
+    && chmod +x /usr/local/bin/entrypoint-dev.sh
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.dev.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint-dev.sh"]
+
+# ======================== PROD ENVIRONMENT ========================
+FROM python-base as production
+ENV FASTAPI_ENV=production
+WORKDIR $PYSETUP_PATH
+
+# copy in our built poetry + venv
+COPY --from=builder-base $POETRY_HOME $POETRY_HOME
+COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+
+# quicker install as runtime deps are already installed
+RUN poetry install
+WORKDIR /src
+RUN mkdir -p /src/galerie/static/react \
+    && chmod 777 /src/galerie/static/react
+RUN mkdir -p /src/galerie/media \
+    && chmod 777 /src/galerie/media
+COPY . .
+
+# installation of netcat to check if db is up
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    netcat=1.10-46 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY ./entrypoint-prod.sh .
+RUN sed -i 's/\r$//g' /src/entrypoint-prod.sh \
+    && chmod +x /src/entrypoint-prod.sh
+
+ENTRYPOINT ["/src/entrypoint-prod.sh"]
