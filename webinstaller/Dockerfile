@@ -14,7 +14,7 @@ RUN npm config set unsafe-perm true
 
 USER node
 
-CMD ["sudo", "chmod", "+x"]
+RUN sudo chmod +x
 
 CMD ["/usr/local/bin/install-frontend-dev.sh"]
 

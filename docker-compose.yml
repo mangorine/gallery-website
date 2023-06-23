@@ -37,12 +37,13 @@ services:
       DOMAIN_NAME: $DOMAIN_NAME
   webinstaller:
     build:
-      context: ./
-      dockerfile: ./webinstaller/Dockerfile
+      context: webinstaller
+      dockerfile: Dockerfile
       target: development
     volumes:
       - ./react/:/app/:rw
       - bundles:/src/galerie/static/react:row
+      
 volumes:
   bundles:
     driver: local
