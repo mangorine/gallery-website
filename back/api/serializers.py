@@ -17,14 +17,23 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'promotion']
 
 class GallerySerializer(serializers.ModelSerializer):
+    sticker_url = serializers.SerializerMethodField('get_sticker')
+
+    def get_sticker(self, gal):
+        files = File.objects.filter(gallery = gal)
+        if(files.count() >= 1):
+            return files[0].link
+        else:
+            return ''
+
     class Meta:
         model = Gallery
-        fields = ['id', 'name', 'description', 'date', 'visibility', 'type']
+        fields = ['id', 'name', 'description', 'date', 'visibility', 'type', 'sticker_url']
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ['id', 'file_name', 'file_extension', 'file_full_name', 'gallery']
+        fields = ['id', 'file_name', 'file_extension', 'file_full_name', 'gallery', 'link']
 
 class MaterialSerializer(serializers.ModelSerializer):
     class Meta:

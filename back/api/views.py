@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from rest_framework import status
 
 from api.models import (
     Student, Gallery, File, Reaction, Material
@@ -46,5 +47,7 @@ def get_galleries(request):
 @api_view(['POST'])
 def get_pics(request):
     files = File.objects.filter(gallery = request.data['id'])
+    if(files.count() == 0):
+        return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = FileSerializer(files, many=True)
-    return Response(serializer.data)
+    return Response(data=serializer.data)

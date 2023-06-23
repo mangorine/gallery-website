@@ -19,7 +19,8 @@ services:
     volumes:
       - ./back:/src
       - ./backups:/backups
-      - bundles:/src/galerie/static/react:rw
+      - bundles:/src/galerie/static/react
+      - ./back/galerie/media/:/src/galerie/media/
     ports:
       - "$BACK_PORT:8000"
     depends_on:
@@ -41,9 +42,8 @@ services:
       dockerfile: Dockerfile
       target: development
     volumes:
-      - ./react/:/app/:rw
-      - bundles:/src/galerie/static/react:row
-      
+      - ./react/:/app/
+      - bundles:/src/galerie/static/react
 volumes:
   bundles:
     driver: local
