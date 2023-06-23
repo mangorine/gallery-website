@@ -138,7 +138,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
+    os.path.join(BASE_DIR, 'galerie/static/'),
 ]
 
 MEDIA_URL = 'media/'
@@ -147,8 +147,8 @@ MEDIAFILES_DIRS = [
 ]
 
 # Only for production to allow Nginx to serve files directly from this folder
-STATIC_ROOT = os.path.join(BASE_DIR, 'galerie/static/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'galerie/media/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
