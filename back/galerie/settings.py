@@ -136,12 +136,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'galerie/static'),
+    os.path.join(BASE_DIR, 'static/'),
 ]
 
 MEDIA_URL = 'media/'
 MEDIAFILES_DIRS = [
-    os.path.join(BASE_DIR, 'galerie/static'),
+    os.path.join(BASE_DIR, 'galerie/media'),
 ]
 
 # Only for production to allow Nginx to serve files directly from this folder
