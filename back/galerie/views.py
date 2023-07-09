@@ -2,8 +2,9 @@
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import permission_classes
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
 
 from .settings import LOGIN_REDIRECT_URL, LOGIN_URL
 
@@ -44,3 +45,6 @@ def gallery(request, id=-1):
 @login_required
 def galleries(request):
     return render(request, 'galleries.html')
+
+def index(request):
+    return render(request, 'index.html')

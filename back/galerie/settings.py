@@ -58,6 +58,7 @@ THIRD_PARTY_APPS = [
 
 PROJECT_APPS = [
     'api',
+    'gestion',
 ]
 
 INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -78,7 +79,7 @@ ROOT_URLCONF = 'galerie.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'galerie/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'galerie/templates'), os.path.join(BASE_DIR, 'gestion/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

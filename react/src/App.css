@@ -1,5 +1,6 @@
-.App{
-  background-color: rgb(1, 5, 58);
+body{
+  background: rgb(6,0,106) !important;
+  background: linear-gradient(149deg, rgba(6,0,106,1) 0%, rgba(0,47,82,1) 50%, rgba(8,0,159,1) 100%)!important;
 }
 
 .no-padding{
@@ -10,15 +11,15 @@
 .img-foreground{
   width: 100%;
   height: 100%;
-  z-index:100;
-
+  z-index:90;
+  position: relative;
 }
 
 .img-darker-foreground{
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.137);
-  z-index:100;
+  z-index:90;
   color: rgb(185, 185, 185);
   position: relative;
 }
@@ -43,25 +44,41 @@ img-darker-foreground:hover{
   color: white;
 }
 
-.navbar{
-  background-color: rgba(0, 0, 255, 0.4);
+.c-nav{
+  background-color: rgba(0, 0, 0, 0.788);
+  border-bottom: solid white 1px;
 }
 
-.nav-link{
+.nav-text{
+  text-transform: uppercase;
+  font-weight: bold;
   color: rgb(218, 218, 218);
+  text-decoration: none;
+  margin-right: 15px;
 }
 
-.nav-link:hover{
+.nav-text:hover{
   color:white;
 }
 
 .gallery-sticker{
   cursor:pointer;
+  height: 170px;
+}
+
+.gallery-img{
+  height: 170px;
+  object-fit: cover;
+}
+
+.galleries-img{
+  height: 256px;
+  object-fit: cover;
 }
 
 .pic-modal {
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 100; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -74,6 +91,23 @@ img-darker-foreground:hover{
   margin: 5% auto; /* 15% from the top and centered */
   padding: 20px;
   width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.add-modal-content {
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 60px;
+  width: 40%; /* Could be more or less, depending on screen size */
+  background-color: white;
+}
+
+.add-modal-textfield{
+  margin-top: 25px !important;
+
+}
+
+.add-modal-create-button{
+  margin-top: 50px !important;
+
 }
 
 .pic-modal-nav{
@@ -134,4 +168,137 @@ img-darker-foreground:hover{
 .arrow:focus {
   color: rgb(255, 255, 255);
   cursor: pointer;
+}
+
+.introductive-content{
+
+}
+
+.img-legend{
+  position: absolute;
+  top:0px;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0, 0, 0, 0.788);
+  transition-duration: 0.5s;
+  transition-property: background-color;
+  color:rgb(204, 204, 204);
+}
+
+.img-legend:hover{
+  background-color:rgba(0, 0, 0, 0.3);
+  color:white;
+}
+
+.img-legend-text{
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  transition-duration: 0.5s;
+  transition-property: color;
+}
+
+.zoomer:hover{
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5);
+  }
+
+.add-icon{
+  height: 170px;
+  cursor: pointer;
+  color: #d8d8d8;
+}
+  
+.add-icon:hover,
+.add-icon:focus {
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+  
+.centered-button{
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  transform: scale(2);
+  margin-bottom:70px;
+}
+
+.icon{
+  height: 170px;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  color: #d8d8d8;
+}
+  
+.icon:hover,
+.icon:focus {
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.gallery-title{
+  margin-top: 50px;
+  text-align: center;
+  color: white;
+}
+
+.big-button{
+  width:max-content;
+  margin-left:auto;
+  margin-right: auto;
+  color:rgb(182, 182, 182);
+  text-transform: uppercase;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+  text-align: center;
+  display: block;  
+  transition: all 0.5s;
+  border-radius: 50px;
+  border-color: rgb(182, 182, 182);
+  border-width: 2px;
+  border-style: solid;
+}
+
+.big-button:focus,
+.big-button:hover{
+  color:white;
+  border-color: rgb(255, 255, 255);
+}
+
+.img-team{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+.team-down{
+  width:max-content;
+  margin-top: 60px;
+  margin-left:auto;
+  margin-right: auto;
+  color:rgb(182, 182, 182);
+  text-transform: uppercase;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+  text-align: center;
+  display: block;  
+  transition: all 0.5s;
+}
+
+.team-down:focus,
+.team-down:hover{
+  color:white;
+}
+
+.main-intro-div{
+  margin-top: 100px;
 }

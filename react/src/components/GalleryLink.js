@@ -9,7 +9,10 @@ const GalleryLink = (props) => {
           <Col xs="12" sm="6" md="4" lg="3">
           <div className='img-foreground'>
               <a href={props.link}>
-                <img src={props.sticker} width="100%"/>
+                <img className='galleries-img' src={props.sticker} width="100%"/>
+                <div className='img-legend'>
+                  <h3 className='img-legend-text'>{props.title}</h3>
+                </div>
               </a>
             </div>
           </Col>

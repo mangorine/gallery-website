@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import models as models2
+from datetime import datetime
 
 class Year(models.Model):
     name = models.CharField(primary_key=True, max_length=10)
@@ -16,9 +17,9 @@ class Student(models.Model):
 #TODO: Create a year model ?
 class Gallery(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(blank=False, max_length=1000)
+    name = models.CharField(blank=False, max_length=1000, unique=True)
     description = models.CharField(max_length=10000)
-    date = models.DateField(blank=False)
+    date = models.DateTimeField(blank=False, default=datetime.now)
 
     class Visibility(models.TextChoices):
         PUBLIC = "publique"

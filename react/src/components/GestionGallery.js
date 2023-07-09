@@ -6,9 +6,12 @@ import Col from 'react-bootstrap/Col';
 import DownloadIcon from '@mui/icons-material/Download';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import DeleteIcon from '@mui/icons-material/Delete';
 import GallerySticker from './GallerySticker'
 import Cookies from 'js-cookie';
 import CustomNavbar from './Navbar';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Stack from '@mui/material/Stack';
 
 export default function Gallery({props}){
 
@@ -19,7 +22,7 @@ export default function Gallery({props}){
     const [picsList, setPicsList] = useState([]);
     const [pics, setPics] = useState([]);
     const [name, setName] = useState('');
-    //List of picture in the gallery
+    const [addModalState, setaddModalState] = useState(false);
 
     const requestOptions = {
       method: 'POST',
@@ -40,6 +43,10 @@ export default function Gallery({props}){
       setState(false)
     };
 
+    const openAddModal = () => {
+      setaddModalState(true)
+    }
+
     //Goto next picture in modal
     const nextPicture = () => {
       console.log(pics)
@@ -48,6 +55,45 @@ export default function Gallery({props}){
       setCurrent(pics[nextId]);
     };
 
+    const deleteCurrent = () => {
+      const deleteOptions = {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRFToken': Cookies.get('csrftoken') },
+        body: JSON.stringify({ name: name, link: current })
+      };
+      fetch('/api/gallery/pics/delete/', deleteOptions)
+            .then(res => res.json())
+            .then(
+              (result) => {
+                window.location.reload(false)
+              },
+              (error) => {
+                console.log(error)
+              }
+            );
+    };
+    
+    const deleteGallery = () => {
+      const deleteOptions = {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRFToken': Cookies.get('csrftoken') },
+        body: JSON.stringify({ name: name})
+      };
+      fetch('/api/gallery/delete/', deleteOptions)
+            .then(res => res.json())
+            .then(
+              (result) => {
+                window.location.href = '/gestion/'
+              },
+              (error) => {
+                console.log(error)
+              }
+            );
+    };
     //Goto previous picture in modal
     const previousPicture = () => {
       let nextId = pics.indexOf(current)-1;
@@ -78,29 +124,33 @@ export default function Gallery({props}){
                 console.log(error)
               }
             );
-          fetch('/api/gallery/', requestOptions)
+      fetch('/api/gallery/', requestOptions)
             .then(res => res.json())
             .then(
-              (result) => {
-                setName(result.name)
-              },
-              (error) => {
-                console.log(error)
-              }
-            );
+                (result) => {
+                  setName(result.name)
+                },
+                (error) => {
+                  console.log(error)
+                }
+              );
+        
     }, [])
+    
 
     const ref = useRef(null);
     const ref2 = useRef(null);
     const ref3 = useRef(null)
     const ref4 = useRef(null)
+    const ref5 = useRef(null)
 
-    useEffect(() => {
+          useEffect(() => {
             const handleClickOutside = (event) => {
               if (ref.current && !ref.current.contains(event.target) 
                 && ref2.current && !ref2.current.contains(event.target) 
                 && ref3.current && !ref3.current.contains(event.target)
-                && ref4.current && !ref4.current.contains(event.target)) {
+                && ref4.current && !ref4.current.contains(event.target)
+                && ref5.current && !ref5.current.contains(event.target)) {
                 closeModal()
               }
             };
@@ -110,11 +160,18 @@ export default function Gallery({props}){
             };
           },[]);
 
+          
     return (
       <>
       <CustomNavbar/>
-        <div className="introductive-content">
-          <h1 className="gallery-title">{name}</h1>
+      <div className="introductive-content">
+        <h1 className="gallery-title">{name}</h1>
+          <Stack direction="row" alignItems="center" gap={1}>
+            <span className='centered-button'>
+              <AddCircleOutlineIcon className="icon"/>
+              <DeleteIcon onClick={deleteGallery} className="icon"/>
+              </span>
+          </Stack>
         </div>
         <Row className='g-0'>
           {picsList}
@@ -126,12 +183,24 @@ export default function Gallery({props}){
             <ArrowForwardIcon ref={ref3} onClick={nextPicture} className='arrow right-arrow'/>
             <div className="pic-modal-nav">
               <span className='close' onClick={closeModal}>&times;</span>
-              <a href={current} download={current}><span ref={ref4}><DownloadIcon className="download"/></span></a>
+              <span ref={ref4}><DownloadIcon className="download"/></span>
+              <span ref={ref5}><DeleteIcon onClick={deleteCurrent} className="download" /></span>
             </div>
             <div className='pic-modal-content'>
               <div ref={ref} className="img-browser">
                 <img src={current} width="100%"/>
               </div>
+            </div>
+          </div>
+          )
+        }
+
+        {addModalState && (
+          <div className='pic-modal'>
+            <div ref={ref} className='add-modal-content'>
+              <form>
+                <input type='file' id='pics' accept='image/jpg, image/png, image/jpeg'/>
+              </form>
             </div>
           </div>
           )

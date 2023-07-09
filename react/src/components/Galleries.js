@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Cookies from 'js-cookie';
 import GalleryLink from './GalleryLink';
+import CustomNavbar from './Navbar'
 
 export default function Gallery(){
     const [galleriesComp, setGalleriesComp] = useState([]);
@@ -38,8 +38,14 @@ export default function Gallery(){
       
 
     return(
+      <>
+        <CustomNavbar/>
+        <div className="introductive-content">
+
+        </div>
         <Row className='g-0'>
             {galleriesComp}
         </Row>
+      </>
     )
 }
