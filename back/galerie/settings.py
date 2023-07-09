@@ -35,6 +35,9 @@ if DEBUG:
     SECRET_KEY = 'oqfhfeho76g<àUIç9fzjeljfzfefhzhfké2~koe~p€~lee'
 else:
     SECRET_KEY = os.environ['SECRET_KEY']
+    SECURE_SSL_REDIRECT = os.environ['SECURE_SSL_REDIRECT']
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -46,14 +49,18 @@ CORE_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'api',
 ]
 
 THIRD_PARTY_APPS = [
-    'rest_framework'
+    'rest_framework',
+    'django_cas_ng',
 ]
 
-INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS
+PROJECT_APPS = [
+    'api',
+]
+
+INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_cas_ng.middleware.CASMiddleware',
 ]
 
 ROOT_URLCONF = 'galerie.urls'
@@ -145,9 +153,25 @@ MEDIA_URL = 'media/'
 
 # Only for production to allow Nginx to serve files directly from this folder
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'galerie/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'galleries'
+
+AUTHEENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'galerie.auth.EmailBackend',
+    'django_cas_ng.backends.CASBackend',
+]
+
+# SSO CONNECT
+CAS_SERVER_URL = "http://cas.enpc.fr/cas/"
+CAS_CREATE_USER = False
+CAS_CHECK_NEXT = False
+CAS_REDIRECT_URL = "/"
+CAS_ADMIN_PREFIX = "admin/"

@@ -1,6 +1,47 @@
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+{% load static %}
+<!--Body-->
+<body>
+    <!--Background-->
+    {% include "registration/background.html" %}
+
+    <!--Login Card-->
+    <div class="login-content">
+        <div class="login-card">
+            <div class="row h-100">
+                <!--Login Card Left Side-->
+                <div class="col-sm-5 logo-col" style="padding: 1rem;">
+                    <h1 class="login-title">Bienvenue sur la galerie Ponthe</h1>
+                </div>
+                <!--Login Card Right Side-->
+                <div class="col-sm-7 white-border" style="padding: 1rem;">
+                    <!--Login Form-->
+                    <form class="login-card-form" method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <h1 class="login-title">Connecte-toi !</h1>
+                        <!--Indications if not connected-->
+                        {% if next %}
+                            {% if user.is_authenticated %}
+                                <p class="login-links">Ton compte n'a pas accès à cette page. Pour continuer, connecte-toi avec un compte ayant les droits suffisants.</p>
+                            {% else %}
+                                <p class="login-links">Connecte-toi pour accéder à cette page !</p>
+                            {% endif %}
+                        {% endif %}
+                        <!--Login Inputs-->
+                        <input type="email" class="login-input" placeholder="prenom.nom@eleves.enpc.fr" name="username" value='{{form.username.value|default_if_none:""}}' required>
+                        <input type="password" class="login-input" placeholder="mot de passe" name="password" required>
+                        <!--Login Links-->
+                        <p class="login-links"><a class="link" href="{% url 'cas_ng_login' %}">Connexion SSO</a> - <a class="link" href="{% url 'password_reset' %}">Mot de passe oublié</a> - <a class="link" href="mailto:clubinfo@liste.enpc.fr?subject=Besoin d'aide sur uPont">Aide</a></p>
+                        <!--Login Errors-->
+                        {% if form.errors %}
+                            <p class="login-errors">Identifiant ou mot de passe erroné... Rentre-les à nouveau !</p>
+                        {% endif %}
+                        <!--Submit Button-->
+                        <button type="submit" class="button blue-button">Se connecter</button>
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

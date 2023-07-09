@@ -40,6 +40,7 @@ services:
       DEBUG: $DEBUG
       DOMAIN_NAME: $DOMAIN_NAME
       GUNICORN_NB_WORKERS: $GUNICORN_NB_WORKERS
+      SECURE_SSL_REDIRECT: $SECURE_SSL_REDIRECT
     networks:
       - ping
       - db_link

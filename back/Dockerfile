@@ -105,7 +105,6 @@ RUN apt-get update \
     netcat=1.10-46 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./entrypoint-prod.sh .
 RUN sed -i 's/\r$//g' /src/entrypoint-prod.sh \
     && chmod +x /src/entrypoint-prod.sh
 
