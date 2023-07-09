@@ -22,22 +22,27 @@ class ApiConfig(AppConfig):
         def read_users(file):
             f = open(file, encoding='utf8')
             f.readline()
+            i = 0
             for l in f:
-                args = l.replace('(', '').replace(')', '').split(',')
-                uid = int(args[0])
-                firstname = args[2].replace("'", "")
-                lastname = args[3].replace("'", "")
-                year = args[6].replace("'", "")
-                username = args[8].replace("'", "")
-                mail = args[9].replace("'", "")
-                join_date = args[12].replace("'", "").split(" ")[1]
-                print(uid, firstname, lastname, year, username, mail, join_date)
+                if i < 10:
+                    args = l.replace('(', '').replace(')', '').split(',')
+                    uid = int(args[0])
+                    firstname = args[2].replace("'", "").replace(" ", "")
+                    lastname = args[3].replace("'", "").replace(" ", "")
+                    year = args[6].replace("'", "")
+                    username = args[8].replace("'", "").replace(" ", "")
+                    mail = args[9].replace("'", "")
+                    join_date = args[12].replace("'", "").split(" ")[1]
+                    print(uid, firstname, lastname, year, username, mail, join_date)
 
-                user = User.objects.create_user(username=username, email=mail, password="e")
-                user.first_name = firstname
-                user.last_name = lastname
-                user.date_joined = join_date
-                user.save()
+                    user = User.objects.create_user(username=username, email=mail, password="e")
+                    user.first_name = firstname
+                    user.last_name = lastname
+                    user.date_joined = join_date
+                    user.save()
+                    i += 1
+                else:
+                    break
         
         #read_users(str(settings.BASE_DIR) + '/api/users.sql')
 

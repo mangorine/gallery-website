@@ -164,7 +164,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'galleries'
 
-AUTHEENTICATION_BACKENDS = [
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'galerie.auth.EmailBackend',
     'django_cas_ng.backends.CASBackend',
