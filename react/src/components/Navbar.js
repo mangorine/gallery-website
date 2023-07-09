@@ -20,7 +20,7 @@ const CustomNavbar = () => {
                 <a className="nav-text" href="/material">Matériel</a>
               </Nav>
               <Nav>
-                <a className="nav-text" href="">Connexion</a>             
+                <a className="nav-text" href="/login">Connexion</a>             
               </Nav>
             </Navbar.Collapse>
           </Container>
