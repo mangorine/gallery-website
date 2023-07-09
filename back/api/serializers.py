@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from api.models import (
-    Student, Gallery, Material, File, Reaction
+    Student, Gallery, Material, File, Reaction, Year, Promo
 )
 from django.contrib.auth.models import User
 
@@ -28,7 +28,7 @@ class GallerySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Gallery
-        fields = ['id', 'name', 'description', 'date', 'visibility', 'type', 'sticker_url']
+        fields = ['id', 'name', 'description', 'date', 'visibility', 'type', 'year', 'sticker_url']
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,3 +46,13 @@ class ReactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reaction
         fields = ['gallery', 'student']
+
+class YearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Year
+        fields=['name']
+
+class PromoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Promo
+        fields = ['name', 'first_year']

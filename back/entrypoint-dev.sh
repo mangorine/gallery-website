@@ -8,6 +8,7 @@ done
 
 echo "PostgreSQL started"
 
+python3 manage.py makemigrations
 python3 manage.py migrate --noinput
 
 exec "$@"

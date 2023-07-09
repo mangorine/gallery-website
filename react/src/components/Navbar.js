@@ -7,20 +7,20 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const CustomNavbar = () => {
     return (
-        <Navbar collapseOnSelect expand="lg" className='' variant='dark' bg='dark'>
+        <Navbar collapseOnSelect expand="lg" data-bs-theme="dark" className='c-nav'>
           <Container>
             <Navbar.Brand href="/">
-                <img src="logo-ponthe.png" height="40px"/>
+                <img src="/static/assets/img/logo-ponthe.png" height="40px"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link href="">Galeries</Nav.Link>
-                <Nav.Link href="">Équipe</Nav.Link>
-                <Nav.Link href="">Matériel</Nav.Link>
+              <Nav className="me-auto justify-content-center">
+                <a className="nav-text" href="/galleries">Galeries</a>
+                <a className="nav-text" href="/team">Équipe</a>
+                <a className="nav-text" href="/material">Matériel</a>
               </Nav>
               <Nav>
-                <Nav.Link href="">Connexion</Nav.Link>
+                <a className="nav-text" href="">Connexion</a>             
               </Nav>
             </Navbar.Collapse>
           </Container>

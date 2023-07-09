@@ -2,11 +2,29 @@ from django.urls import path
 from api.views import(
     getRoutes,
     get_galleries,
-    get_pics
+    get_pics,
+    create_gallery,
+    create_promo,
+    create_year,
+    load_folder_into_gallery,
+    delete_gallery,
+    get_gallery,
+    delete_pic,
+    FileUploadView
 )
 
 urlpatterns = [
     path("", getRoutes),
     path("galleries/", get_galleries), 
-    path("gallery/pics/", get_pics)
-]
+    path("gallery/load", load_folder_into_gallery),
+    path("gallery/pics/", get_pics),
+    path("gallery/pics/delete/", delete_pic),
+    path("gallery/", get_gallery),
+    path("gallery/delete/", delete_gallery),
+    path("gallery/upload/", FileUploadView.as_view()),
+    path("galleries/create/", create_gallery),
+    path("promo/create/", create_promo),
+    path("year/create/", create_year),
+
+]    
+
