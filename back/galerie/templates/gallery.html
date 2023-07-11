@@ -1,6 +1,9 @@
 {% load static %}
 
 <body>
+    <!--Header-->
+    {% include "header.html" %}
+    
     <!--Content-->
     <div class="content">
 
@@ -15,7 +18,7 @@
 
     <script>
         window.react_mount = document.getElementById('Basic');
-        gallery_id = {{id}}
+        gallery_id = {{id}};
     </script>
     <script src="{% static 'react/gallery.bundle.js' %}"></script>
 

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-const CustomNavbar = () => {
+const CustomNavbar = ({props}) => {
     return (
         <Navbar collapseOnSelect expand="lg" data-bs-theme="dark" className='c-nav'>
           <Container>
@@ -20,7 +20,8 @@ const CustomNavbar = () => {
                 <a className="nav-text" href="/material">Matériel</a>
               </Nav>
               <Nav>
-                <a className="nav-text" href="/login">Connexion</a>             
+                {!is_authenticated && (<a className="nav-text" href="/login">Connexion</a> )}
+                {is_authenticated && (<a className="nav-text" href="/logout">Deconnexion</a> )}
               </Nav>
             </Navbar.Collapse>
           </Container>
