@@ -1,0 +1,9 @@
+<!--Header-->
+
+<script>
+    {% if user.is_authenticated %}
+        is_authenticated = true;
+    {% else %}
+        is_authenticated = false;
+    {% endif %}
+</script>
