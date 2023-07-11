@@ -38,7 +38,10 @@ if DEBUG:
     SECRET_KEY = 'oqfhfeho76g<àUIç9fzjeljfzfefhzhfké2~koe~p€~lee'
 else:
     SECRET_KEY = os.environ['SECRET_KEY']
-    SECURE_SSL_REDIRECT = os.environ['SECURE_SSL_REDIRECT']
+    if os.environ['SECURE_SSL_REDIRECT'] == 'False':
+        SECURE_SSL_REDIRECT = False
+    else:
+        SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
