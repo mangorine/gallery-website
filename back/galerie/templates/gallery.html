@@ -1,5 +1,7 @@
 {% load static %}
-
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+</head>
 <body>
     <!--Content-->
     <div class="content">
@@ -15,7 +17,8 @@
 
     <script>
         window.react_mount = document.getElementById('Basic');
-        gallery_id = {{id}}
+        gallery_id = {{id}};
+        is_logged = true;
     </script>
     <script src="{% static 'react/gallery.bundle.js' %}"></script>
 
