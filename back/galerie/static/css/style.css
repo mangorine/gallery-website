@@ -1,3 +1,8 @@
+body{
+  background: rgb(6,0,106) !important;
+  background: linear-gradient(149deg, rgba(6,0,106,1) 0%, rgba(0,47,82,1) 50%, rgba(8,0,159,1) 100%)!important;
+}
+
 .button{
     display: inline-block;
     cursor: pointer;
@@ -166,27 +171,3 @@
     background: linear-gradient(rgb(0, 140, 255), rgb(255, 0, 0));
     z-index: 0;
 }
-
-.colored-circle:nth-child(1){
-    clip-path: circle(30% at 30% 10%);
-}
-
-.colored-circle:nth-child(2){
-    clip-path: circle(25% at 100% 40%);
-}
-
-.colored-circle:nth-child(3){
-    clip-path: circle(25% at 0% 100%);
-}
-
-.colored-circle:nth-child(4){
-    clip-path: circle(10% at 50% 80%);
-}
-
-@media(max-width:670px){
-    .white-border{
-        border-left: none var(--border-color) var(--border-width);
-        border-top: solid var(--border-color) var(--border-width);
-    }
-}
-
