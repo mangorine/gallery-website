@@ -28,7 +28,7 @@ services:
       - ./backups:/backups
       - bundles:/src/galerie/static/react
       - static_volume:/src/static/
-      - media_volume:/src/media/
+      - ./back/media:/src/media/
     restart: always
     environment:
       DB_HOST: $DB_HOST
@@ -41,6 +41,7 @@ services:
       DOMAIN_NAME: $DOMAIN_NAME
       GUNICORN_NB_WORKERS: $GUNICORN_NB_WORKERS
       SECURE_SSL_REDIRECT: $SECURE_SSL_REDIRECT
+      TRUSTED_ORIGIN: $TRUSTED_ORIGIN
     networks:
       - ping
       - db_link
@@ -53,7 +54,7 @@ services:
       - back
     volumes:
       - static_volume:/src/static
-      - media_volume:/src/media
+      - ./back/media:/src/media
     restart: always
     networks:
       - nginx_link
@@ -69,7 +70,6 @@ services:
 
 volumes:
   static_volume:
-  media_volume:
   database:
   bundles:
     driver: local

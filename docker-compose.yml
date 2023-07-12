@@ -36,6 +36,7 @@ services:
       DB_PASSWORD: $DB_PASSWORD
       DEBUG: $DEBUG
       DOMAIN_NAME: $DOMAIN_NAME
+      TRUSTED_ORIGIN: $TRUSTED_ORIGIN
   webinstaller:
     build:
       context: webinstaller
