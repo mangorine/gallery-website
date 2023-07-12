@@ -186,11 +186,11 @@ body{
   height: 100%;
   transition-duration: 0.5s;
   transition-property: background-color;
-  color:rgb(204, 204, 204);
+  color:white;
 }
 
 .img-legend:hover{
-  color:white;
+  color:rgb(255 196 37);
 }
 
 .img-legend-text{
