@@ -41,6 +41,7 @@ services:
       DOMAIN_NAME: $DOMAIN_NAME
       GUNICORN_NB_WORKERS: $GUNICORN_NB_WORKERS
       SECURE_SSL_REDIRECT: $SECURE_SSL_REDIRECT
+      TRUSTED_ORIGIN: $TRUSTED_ORIGIN
     networks:
       - ping
       - db_link
