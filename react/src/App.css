@@ -1,6 +1,5 @@
 body{
-  background: rgb(6,0,106) !important;
-  background: linear-gradient(149deg, rgba(6,0,106,1) 0%, rgba(0,47,82,1) 50%, rgba(8,0,159,1) 100%)!important;
+  background: white!important;
 }
 
 .no-padding{
@@ -13,20 +12,24 @@ body{
   height: 100%;
   z-index:90;
   position: relative;
+  transition: all 0.2s ease;
+}
+
+.img-foreground:hover{
+  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.5);
 }
 
 .img-darker-foreground{
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.137);
   z-index:90;
   color: rgb(185, 185, 185);
   position: relative;
 }
 
-img-darker-foreground:hover{
+.img-darker-foreground:hover{
   background-color: transparent;
-  color: rgb(255, 255, 255)
+  color: rgb(255, 255, 255);
 }
 
 .img-test{
@@ -45,8 +48,8 @@ img-darker-foreground:hover{
 }
 
 .c-nav{
-  background-color: rgba(0, 0, 0, 0.788);
-  border-bottom: solid white 1px;
+  background-color: #8193F2;
+  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.5);
 }
 
 .nav-text{
@@ -181,14 +184,12 @@ img-darker-foreground:hover{
   top:0px;
   width: 100%;
   height: 100%;
-  background-color:rgba(0, 0, 0, 0.788);
   transition-duration: 0.5s;
   transition-property: background-color;
   color:rgb(204, 204, 204);
 }
 
 .img-legend:hover{
-  background-color:rgba(0, 0, 0, 0.3);
   color:white;
 }
 
@@ -200,7 +201,8 @@ img-darker-foreground:hover{
   transform: translateY(-50%);
   width: 100%;
   transition-duration: 0.5s;
-  transition-property: color;
+  transition-property: all;
+  text-shadow: 2px 2px 4px #0202021f;
 }
 
 .zoomer:hover{
@@ -245,9 +247,11 @@ img-darker-foreground:hover{
 
 .gallery-title{
   margin-top: 50px;
+  margin-bottom: 50px;
+  color: #8193F2;
   text-align: center;
-  color: white;
   font-family: 'Inter';
+  font-weight: bold;
 }
 
 .big-button{
@@ -271,8 +275,8 @@ img-darker-foreground:hover{
 
 .big-button:focus,
 .big-button:hover{
-  color:white;
-  border-color: rgb(255, 255, 255);
+  color:rgb(255 196 37);
+  border-color: rgb(255 196 37);
 }
 
 .img-team{
@@ -295,11 +299,7 @@ img-darker-foreground:hover{
   text-align: center;
   display: block;  
   transition: all 0.5s;
-}
-
-.team-down:focus,
-.team-down:hover{
-  color:white;
+  cursor: pointer;
 }
 
 .main-intro-div{

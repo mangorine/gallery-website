@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -9,6 +10,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import GallerySticker from './GallerySticker'
 import Cookies from 'js-cookie';
 import CustomNavbar from './Navbar';
+import { Height } from '@mui/icons-material';
 
 export default function Gallery({props}){
 
@@ -114,12 +116,14 @@ export default function Gallery({props}){
       <>
       <CustomNavbar/>
         <div className="introductive-content">
-          <h1 className="gallery-title">{name}</h1>
+          <h2 className="gallery-title">{name}</h2>
         </div>
-        <Row className='g-0'>
-          {picsList}
-        </Row>
-
+        <Container fluid>
+          <Row className='g-1'>
+            {picsList}
+          </Row>
+        </Container>
+    
         {state && (
           <div className='pic-modal'>
             <ArrowBackIcon ref={ref2} onClick={previousPicture} className='arrow left-arrow'/>
