@@ -29,7 +29,7 @@ RUN sed -i 's/\r$//g' /usr/local/bin/install-frontend-prod.sh \
 
 USER node
 
-# Supprimer les node_modules existants
+# Supprimer les node_modules potentiellement existants
 RUN rm -rf ./react/node_modules
 
 CMD ["/usr/local/bin/install-frontend-prod.sh"]
