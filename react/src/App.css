@@ -305,3 +305,13 @@ body{
 .main-intro-div{
   margin-top: 100px;
 }
+
+.img-modal{
+    position: absolute;
+    max-width: 90%;
+    transform: translateX(-50%);
+    max-height: 90%;
+    top: 50px;
+    left: 50%;
+    object-fit: cover;
+}

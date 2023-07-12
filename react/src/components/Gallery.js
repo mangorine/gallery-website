@@ -134,7 +134,7 @@ export default function Gallery({props}){
             </div>
             <div className='pic-modal-content'>
               <div ref={ref} className="img-browser">
-                <img src={current} width="100%"/>
+                <img src={current} className='img-modal'/>
               </div>
             </div>
           </div>
