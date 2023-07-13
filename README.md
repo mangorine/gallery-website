@@ -43,6 +43,32 @@ OU
 docker compose -f docker-compose-prod.yml build
 docker compose -f docker-compose-prod.yml start
 ```
+### Problèmes de déploiement
+
+Lors du lancement des commandes précédentes, il est possible que dans certains cas, le serveur ne démarre pas. Cela est souvent dû au passage du mode dévelopement au mode production (si l'on oublie l'option -f docker-compose-prod.yml)
+
+Si vous souhaitez détecter les potentielles erreurs de déploiement, vous pouvez excécutez la commande suivante :
+```
+docker compose -f docker-compose-prod.yml up --build
+```
+
+1)``` Access denied to '/src/galerie/static/react/'```
+Deux options sont possibles : simplement supprimer le dossier en question dans le repo, ou de manière plus brutale, donner toutes les permissions au dossier avec
+```
+chmod -r 777 /src/galerie/static/react/
+```
+
+2)```Tempory failure in name resolution```
+Ce problème provient de la base donnée qui n'arrive pas à être détécté par Django. Cela peut provenir d'un changement de l'adresse de la db ou bien du passage de dévelopement vers production.
+
+La solution est souvent de supprimer le dossier database/ est de relancer le déploiement.
+
+3)```Could not connect to server: Connection refused```
+Ce problème est dû à un changement du mot de passe de la db sans avoir supprimé le dossier database/.
+
+3)``` [emerg] host not found in upstream 'back:8000'```
+Cette erreur est souvent engendrée par un problème préalable dans le déploiement. Si aucun autre problème n'est observable, la meilleure solution est de réinstaller le repo est de lancer la commande de déploiement.
+
 ### Backend
 
 ### Frontend
