@@ -9,5 +9,15 @@ La galerie Ponthe est un site web géré par le club Ponthe de l'Ecole des Ponts
 La galerie se compose:
 - d'un backend Django
 - d'un frontend React
-- d'une gestion du traffic ainsi que du service des statics et des medias par l'intermédiaire de Nginx.
-- d'un déploiement avec gestion des dépendances entièrement géré par Docker.
+- d'une gestion du traffic ainsi que du service des statics et des medias par l'intermédiaire de Nginx
+- d'un déploiement avec gestion des dépendances entièrement géré par Docker
+
+### Déploiement
+
+### Backend
+
+### Frontend
+
+### Nginx
+
+### Docker
