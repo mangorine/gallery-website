@@ -65,13 +65,15 @@ export default function Gallery({props}){
             .then(
               (result) => {
                 for(const pic in result){
-                  picsTemp.push(result[pic].link)
+                  picsTemp.push(result[pic].link + '/uploads/' + result[pic].file_full_name)
+                  picsDiv.push(
+                  <Col key={pic} xs="12" sm="6" md="4" lg="2">
+                    <GallerySticker img={result[pic].link + '/uploads/' + result[pic].file_full_name} 
+                                    thumb={result[pic].link + '/thumbnails/' + result[pic].file_full_name} 
+                                    modal_func={toggleModal}/>
+                  </Col>
+                  )
                 }
-                picsTemp.forEach((pic, index) =>{
-                  picsDiv.push(<Col key={pic} xs="12" sm="6" md="4" lg="2">
-                  <GallerySticker img={pic} modal_func={toggleModal}/>
-                </Col>)
-                })
                 setPicsList(picsDiv)
                 setPics(picsTemp)
                 console.log(pics)

@@ -10,6 +10,7 @@ from api.views import(
     delete_gallery,
     get_gallery,
     delete_pic,
+    generate_thumbnails,
     FileUploadView
 )
 
@@ -17,6 +18,7 @@ urlpatterns = [
     path("", getRoutes),
     path("galleries/", get_galleries), 
     path("gallery/load", load_folder_into_gallery),
+    path("gallery/gen_thumb", generate_thumbnails),
     path("gallery/pics/", get_pics),
     path("gallery/pics/delete/", delete_pic),
     path("gallery/", get_gallery),

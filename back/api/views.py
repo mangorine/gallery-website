@@ -127,8 +127,14 @@ def create_promo(request):
 @permission_classes((IsAuthenticated, IsAdminUser,))
 def load_folder_into_gallery(request):
     gal = Gallery.objects.get(id=request.data['id'])
-    loader.load_folder_into_gallery('/media/' + request.data['folder'], gal)
+    loader.load_folder_into_gallery(request.data['folder'], gal)
     return Response(GallerySerializer(gal).data)
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated, IsAdminUser,))
+def generate_thumbnails(request):
+    loader.generate_thumbnails(request.data['folder'])
+    return Response(status=200)
 
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
