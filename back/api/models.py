@@ -18,6 +18,7 @@ class Student(models.Model):
 class Gallery(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(blank=False, max_length=1000, unique=True)
+    slug = models.SlugField(max_length=1000, blank=False, default="")
     description = models.CharField(max_length=10000)
     date = models.DateTimeField(blank=False, default=datetime.now)
 

@@ -3,7 +3,9 @@ from api.models import (
     Student, Gallery, Material, File, Reaction, Year, Promo
 )
 from django.contrib.auth.models import User
+import random
 
+random.seed()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,13 +24,14 @@ class GallerySerializer(serializers.ModelSerializer):
     def get_sticker(self, gal):
         files = File.objects.filter(gallery = gal)
         if(files.count() >= 1):
-            return files[0].link
+            i = random.randint(0, files.count()-1)
+            return files[i].link + '/uploads/' + files[i].file_full_name
         else:
             return ''
 
     class Meta:
         model = Gallery
-        fields = ['id', 'name', 'description', 'date', 'visibility', 'type', 'year', 'sticker_url']
+        fields = ['id', 'name', 'description', 'date', 'visibility', 'type', 'year', 'sticker_url', 'slug']
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:

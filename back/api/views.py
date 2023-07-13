@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.parsers import FileUploadParser
 
+from django.template.defaultfilters import slugify
+
 from api.models import (
     Student, Gallery, File, Reaction, Material, Year
 )
@@ -73,7 +75,7 @@ def getRoutes(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_galleries(request):
-    galleries = Gallery.objects.all()
+    galleries = Gallery.objects.filter(visibility=Gallery.Visibility.PUBLIC).order_by('-date')
     serializer = GallerySerializer(galleries, many=True)
     return Response(serializer.data)
 
@@ -99,12 +101,15 @@ def get_pics(request):
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def create_gallery(request):
-    print(request.data)
     if('year' not in request.data):
         request.data['year'] = Year.objects.last().pk
+    request.data['slug'] = slugify(request.data['name'])
     serializer = GallerySerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
+    os.mkdir(str(settings.BASE_DIR) + '/media/' + request.data['slug'])
+    os.mkdir(str(settings.BASE_DIR) + '/media/' + request.data['slug'] + '/uploads')
+    os.mkdir(str(settings.BASE_DIR) + '/media/' + request.data['slug'] + '/thumbnails')
     return Response(serializer.data)
 
 @api_view(['POST'])
