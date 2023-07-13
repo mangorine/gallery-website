@@ -11,6 +11,7 @@ from api.views import(
     get_gallery,
     delete_pic,
     generate_thumbnails,
+    import_users,
     FileUploadView
 )
 
@@ -27,6 +28,6 @@ urlpatterns = [
     path("galleries/create/", create_gallery),
     path("promo/create/", create_promo),
     path("year/create/", create_year),
-
+    path('import/', import_users)
 ]    
 
