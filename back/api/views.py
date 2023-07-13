@@ -187,7 +187,7 @@ def read_users(file):
                     firstname = args[2].replace("'", "").replace(" ", "")
                     lastname = args[3].replace("'", "").replace(" ", "")
                     year = args[6].replace("'", "")
-                    username = args[8].replace("'", "").replace(" ", "")
+                    username = args[8].replace("'", "").replace(" ", "").lower()
                     mail = args[9].replace("'", "")
                     join_date = args[12].replace("'", "").split(" ")[1]
                     print(uid, firstname, lastname, year, username, mail, join_date)
