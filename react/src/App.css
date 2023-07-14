@@ -316,6 +316,13 @@ body{
     object-fit: cover;
 }
 
+/*HOME PAGE*/
+.team-desc{
+  border: 1px solid #cfcfcf;
+  height: 100%;
+  padding: 20px;
+}
+
 /*LOGIN PAGE*/
 .login-logo{
   position: relative;
@@ -360,6 +367,7 @@ body{
   transition: all 0.2s ease;
   border: none;
   color: white;
+  font-weight: bold;
   text-transform: uppercase;
   border-radius: 5px;
   margin-top: 5px;
@@ -383,4 +391,15 @@ body{
 
 .login-link:hover{
   color:#8193F2;
+}
+
+.login-error{
+  background-color: rgb(247, 103, 103);
+  padding-left:10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: 'Inter';
+  color:white;
+  border-left: 3px solid rgb(255, 0, 0);
+  border-radius: 5px;
 }

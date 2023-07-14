@@ -21,6 +21,11 @@
     <script>
         window.react_mount = document.getElementById('Basic');
         cas_url = '{% url 'cas_ng_login' %}';
+        {% if form.errors %}
+            error = true
+        {% else %}
+            error = false
+        {% endif %}
     </script>
     <script src="{% static 'react/login.bundle.js' %}"></script>
 
