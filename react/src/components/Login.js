@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import DjangoCSRFToken from 'django-react-csrftoken'
+import Cookies from 'js-cookie';
 
 export default function Login() {
+
+    const cookie = Cookies.get('csrftoken')
 
     return (
         <>
@@ -14,7 +16,7 @@ export default function Login() {
                         <div className="login-container">
                             <img className="login-logo" src="/static/assets/img/logo-ponthe.png"/>
                             <form className="login-form" method="post" action="/login/">
-                                <DjangoCSRFToken/>
+                                <input type="hidden" name="csrfmiddlewaretoken" value={cookie} />
                                 <input type="email" className="login-input" placeholder="prenom.nom@eleves.enpc.fr" name="username"required/>
                                 <input type="password" className="login-input" placeholder="mot de passe" name="password" required/>
                                 <button type="submit" className="login-button">Se connecter</button>
