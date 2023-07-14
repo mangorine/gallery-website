@@ -315,3 +315,72 @@ body{
     left: 50%;
     object-fit: cover;
 }
+
+/*LOGIN PAGE*/
+.login-logo{
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  height: 95px;
+  margin-bottom: 30px;
+}
+
+.login-container{
+  border: 1px solid #cfcfcf;
+  border-radius: 3px;
+  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.1); 
+  margin-top: 20%;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+
+.login-input {
+  /* Sizing */
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  margin: 1rem 0rem;
+  /* Styling */
+  font-size: 1rem;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #d8d8d8;
+  border: none;
+}
+.login-input:hover,
+.login-input:focus{
+  border: none;
+}
+
+.login-button{
+  width:100%;
+  background-color: #8193F2;
+  transition: all 0.2s ease;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 50px;
+}
+
+.login-button:hover{
+  width:100%;
+  background-color: rgba(104, 126, 240, 1);
+}
+
+.login-link{
+  color:rgb(128, 128, 128);
+  text-decoration: underline;
+  font-family: 'Inter';
+  transition: all 0.2s ease;
+  text-underline-offset: 3px;
+}
+
+
+.login-link:hover{
+  color:#8193F2;
+}
