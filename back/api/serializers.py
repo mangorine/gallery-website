@@ -25,7 +25,7 @@ class GallerySerializer(serializers.ModelSerializer):
         files = File.objects.filter(gallery = gal)
         if(files.count() >= 1):
             i = random.randint(0, files.count()-1)
-            return files[i].link + '/uploads/' + files[i].file_full_name
+            return files[i].link + '/thumbnails/' + files[i].file_full_name
         else:
             return ''
 
