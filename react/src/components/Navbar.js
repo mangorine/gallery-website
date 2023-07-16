@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -18,6 +18,8 @@ const CustomNavbar = ({props}) => {
                 <a className="nav-text" href="/galleries">Galeries</a>
                 <a className="nav-text" href="/">Équipe</a>
                 <a className="nav-text" href="/">Matériel</a>
+                {is_staff && (<a className="nav-text" href="/gestion">Gestion</a> )}
+                {is_superuser && (<a className="nav-text" href="/admin">Admin</a> )}
               </Nav>
               <Nav>
                 {!is_authenticated && (<a className="nav-text" href="/login">Connexion</a> )}
