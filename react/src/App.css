@@ -144,6 +144,12 @@ body{
   cursor: pointer;
 }
 
+@media screen and (max-width: 991px) {
+  .close {
+    font-size: 50px;
+  }
+}
+
 .close-white-modal{
   cursor: pointer;
   color: #d8d8d8;
@@ -175,11 +181,25 @@ body{
   cursor: pointer;
 }
 
+@media screen and (max-width: 991px) {
+  .download {
+    margin-top: 36px;
+    margin-right: 20px;
+    scale: 2;
+  }
+}
+
 .arrow{
   position: absolute;
   top: 50%;
   cursor: pointer;
   color: #d8d8d8;
+}
+
+@media screen and (max-width: 991px) {
+  .arrow{
+    scale: 2;
+  }
 }
 
 .left-arrow{
@@ -329,10 +349,10 @@ body{
 
 .img-modal{
     position: absolute;
-    max-width: 90%;
-    transform: translateX(-50%);
+    max-width: 85%;
+    transform: translate(-50%, -50%);
     max-height: 90%;
-    top: 50px;
+    top: 50%;
     left: 50%;
     object-fit: cover;
 }
