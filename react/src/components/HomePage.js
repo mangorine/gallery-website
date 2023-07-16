@@ -15,6 +15,7 @@ export default function HomePage (){
             <CustomNavbar/>
             <div className="main-intro-div">
                 <a className="big-button" href="/galleries">Accéder aux galeries</a>
+                <a name="team"></a>
                 <span className="team-down"><KeyboardDoubleArrowDownIcon/>Ponthé 025<KeyboardDoubleArrowDownIcon/></span>
             </div>
             <Container fluid>

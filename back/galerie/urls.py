@@ -27,8 +27,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('gallery/<int:id>', views.gallery),
     path('galleries/', views.galleries, name='galleries'),
-    path('api/', include('api.urls')),
+    path('material/', views.material),
     path('gestion/', include('gestion.urls')),
+    path('api/', include('api.urls')),
     path(
         "login/",
         auth_views.LoginView.as_view(redirect_authenticated_user=True),

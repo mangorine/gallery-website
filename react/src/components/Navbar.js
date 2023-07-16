@@ -16,8 +16,8 @@ const CustomNavbar = ({props}) => {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto justify-content-center">
                 <a className="nav-text" href="/galleries">Galeries</a>
-                <a className="nav-text" href="/">Équipe</a>
-                <a className="nav-text" href="/">Matériel</a>
+                <a className="nav-text" href="/#team">Équipe</a>
+                <a className="nav-text" href="/material">Matériel</a>
                 {is_staff && (<a className="nav-text" href="/gestion">Gestion</a> )}
                 {is_superuser && (<a className="nav-text" href="/admin">Admin</a> )}
               </Nav>
