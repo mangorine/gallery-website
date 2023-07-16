@@ -24,6 +24,8 @@ export default function Gallery({props}){
     const [name, setName] = useState('');
     const [addModalState, setaddModalState] = useState(false);
 
+    const cookie = Cookies.get('csrftoken')
+
     const requestOptions = {
       method: 'POST',
       headers: { 
@@ -47,6 +49,10 @@ export default function Gallery({props}){
       setaddModalState(true)
     }
 
+    const closeAddModal = () => {
+      setaddModalState(false)
+    }
+
     //Goto next picture in modal
     const nextPicture = () => {
       console.log(pics)
@@ -56,12 +62,13 @@ export default function Gallery({props}){
     };
 
     const deleteCurrent = () => {
+      const array = current.split('/')
       const deleteOptions = {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
           'X-CSRFToken': Cookies.get('csrftoken') },
-        body: JSON.stringify({ name: name, link: current })
+        body: JSON.stringify({ name: name, file_full_name: array[array.length-1] })
       };
       fetch('/api/gallery/pics/delete/', deleteOptions)
             .then(res => res.json())
@@ -105,25 +112,27 @@ export default function Gallery({props}){
       let picsDiv = []
       let picsTemp = []
       fetch('/api/gallery/pics/', requestOptions)
-            .then(res => res.json())
-            .then(
-              (result) => {
-                for(const pic in result){
-                  picsTemp.push(result[pic].link)
-                }
-                picsTemp.forEach((pic, index) =>{
-                  picsDiv.push(<Col key={pic} xs="12" sm="6" md="4" lg="2">
-                  <GallerySticker img={pic} modal_func={toggleModal}/>
-                </Col>)
-                })
-                setPicsList(picsDiv)
-                setPics(picsTemp)
-                console.log(pics)
-              },
-              (error) => {
-                console.log(error)
-              }
-            );
+      .then(res => res.json())
+      .then(
+        (result) => {
+          for(const pic in result){
+            picsTemp.push(result[pic].link + '/uploads/' + result[pic].file_full_name)
+            picsDiv.push(
+            <Col key={pic} xs="12" sm="6" md="4" lg="2">
+              <GallerySticker img={result[pic].link + '/uploads/' + result[pic].file_full_name} 
+                              thumb={result[pic].link + '/thumbnails/' + result[pic].file_full_name} 
+                              modal_func={toggleModal}/>
+            </Col>
+            )
+          }
+          setPicsList(picsDiv)
+          setPics(picsTemp)
+          console.log(pics)
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
       fetch('/api/gallery/', requestOptions)
             .then(res => res.json())
             .then(
@@ -168,12 +177,12 @@ export default function Gallery({props}){
         <h1 className="gallery-title">{name}</h1>
           <Stack direction="row" alignItems="center" gap={1}>
             <span className='centered-button'>
-              <AddCircleOutlineIcon className="icon"/>
+              <AddCircleOutlineIcon className="icon" onClick={openAddModal}/>
               <DeleteIcon onClick={deleteGallery} className="icon"/>
               </span>
           </Stack>
         </div>
-        <Row className='g-0'>
+        <Row className='g-1'>
           {picsList}
         </Row>
 
@@ -183,12 +192,12 @@ export default function Gallery({props}){
             <ArrowForwardIcon ref={ref3} onClick={nextPicture} className='arrow right-arrow'/>
             <div className="pic-modal-nav">
               <span className='close' onClick={closeModal}>&times;</span>
-              <span ref={ref4}><DownloadIcon className="download"/></span>
+              <a href={current} download={current}><span ref={ref4}><DownloadIcon className="download"/></span></a>
               <span ref={ref5}><DeleteIcon onClick={deleteCurrent} className="download" /></span>
             </div>
             <div className='pic-modal-content'>
               <div ref={ref} className="img-browser">
-                <img src={current} width="100%"/>
+                <img src={current} className='img-modal'/>
               </div>
             </div>
           </div>
@@ -198,9 +207,12 @@ export default function Gallery({props}){
         {addModalState && (
           <div className='pic-modal'>
             <div ref={ref} className='add-modal-content'>
-              <form>
-                <input type='file' id='pics' accept='image/jpg, image/png, image/jpeg'/>
-              </form>
+              <span className='close-white-modal' onClick={closeAddModal}>&times;</span>
+              <form method="POST" class="post-form" enctype="multipart/form-data">
+                  <input type="hidden" name="csrfmiddlewaretoken" value={cookie} />
+                  <input type='file' name='zipfile'/>
+                  <button type="submit" className="login-button">Lancer l'envoi</button>
+                </form>
             </div>
           </div>
           )

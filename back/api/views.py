@@ -153,7 +153,7 @@ def delete_gallery(request):
 @permission_classes([IsAdminUser])
 def delete_pic(request):
     gallery =  Gallery.objects.get(name=request.data['name'])
-    file = File.objects.get(gallery=gallery, link=request.data['link'])
+    file = File.objects.get(gallery=gallery, file_full_name=request.data['file_full_name'])
     file.delete()
     #TODO DELETE FILE CONCERNED
     return Response(FileSerializer(file).data)

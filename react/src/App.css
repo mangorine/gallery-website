@@ -139,6 +139,22 @@ body{
   cursor: pointer;
 }
 
+.close-white-modal{
+  cursor: pointer;
+  color: #d8d8d8;
+  float:right;
+  margin-right: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-white-modal:hover,
+.close-white-modal:focus {
+  color: rgb(97, 97, 97);
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .download{
   margin-top: 13px;
   margin-right: 10px;
@@ -219,7 +235,7 @@ body{
   
 .add-icon:hover,
 .add-icon:focus {
-  color: rgb(255, 255, 255);
+  color:rgb(255 196 37);
   cursor: pointer;
 }
   
@@ -241,7 +257,7 @@ body{
   
 .icon:hover,
 .icon:focus {
-  color: rgb(255, 255, 255);
+  color:rgb(255 196 37);
   cursor: pointer;
 }
 
@@ -321,6 +337,7 @@ body{
   border: 1px solid #cfcfcf;
   height: 100%;
   padding: 20px;
+  
 }
 
 /*LOGIN PAGE*/
