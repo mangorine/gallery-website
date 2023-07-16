@@ -66,6 +66,11 @@ body{
   text-decoration: solid underline white 2px;
 }
 
+@media screen and (max-width: 991px) {
+  .nav-text{
+    font-size: 30px;
+  }
+}
 .gallery-sticker{
   cursor:pointer;
   height: 170px;
