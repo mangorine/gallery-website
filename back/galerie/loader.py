@@ -4,21 +4,39 @@ from api.models import File
 from PIL import Image, ImageOps
 import zipfile
 
-#TODO: function that transform a zip file into a gallery
+
+# TODO: function that transform a zip file into a gallery
 def load_zip_into_gallery(zip_dir, gal):
-    file = zipfile.ZipFile(str(settings.BASE_DIR) + '/media/' + zip_dir)
-    file.extractall(path=str(settings.BASE_DIR) + '/media/' + gal.slug + '/uploads/', pwd=None)
+    file = zipfile.ZipFile(str(settings.BASE_DIR) + "/media/" + zip_dir)
+    file.extractall(
+        path=str(settings.BASE_DIR) + "/media/" + gal.slug + "/uploads/", pwd=None
+    )
     generate_thumbnails(gal.slug)
     load_folder_into_gallery(gal.slug, gal)
 
-#folder_dir format has to be vap-2023/ if the gallery's folder in media folder is vap-2023 /!\ DONT FORGET THE SLASH AT THE END
-#TODO: LOAD ONLY PICS THAT ARE NOT ARLREADY IN THE GALLERY  
+
+# folder_dir format has to be vap-2023/ if the gallery's folder in media folder is vap-2023 /!\ DONT FORGET THE SLASH AT THE END
+# TODO: LOAD ONLY PICS THAT ARE NOT ARLREADY IN THE GALLERY
 def load_folder_into_gallery(folder_dir, gal):
-    for filename in os.listdir(str(settings.BASE_DIR) + '/media/' + folder_dir + '/uploads/'):
-        temp = filename.split('.')
-        files = File.objects.filter(file_name=temp[0], file_extension=temp[1], file_full_name=filename, link='/media/' + folder_dir, gallery=gal)
+    for filename in os.listdir(
+        str(settings.BASE_DIR) + "/media/" + folder_dir + "/uploads/"
+    ):
+        temp = filename.split(".")
+        files = File.objects.filter(
+            file_name=temp[0],
+            file_extension=temp[1],
+            file_full_name=filename,
+            link="/media/" + folder_dir,
+            gallery=gal,
+        )
         if files.count() == 0:
-            file = File(file_name=temp[0], file_extension=temp[1], file_full_name=filename, link='/media/' + folder_dir, gallery=gal)
+            file = File(
+                file_name=temp[0],
+                file_extension=temp[1],
+                file_full_name=filename,
+                link="/media/" + folder_dir,
+                gallery=gal,
+            )
             file.save()
 
 
