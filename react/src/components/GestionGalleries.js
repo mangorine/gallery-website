@@ -97,12 +97,13 @@ export default function Gallery(){
             <span className='centered-button'><AddCircleOutlineIcon className="add-icon" onClick={openModal}/></span>
           </Stack>
         </div>
-        <Row className='g-0'>
+        <Row className='g-1'>
             {galleriesComp}
         </Row>
         {addModalState && (
           <div className='pic-modal'>
             <div ref={ref} className='add-modal-content'>
+            <span className='close-white-modal' onClick={closeModal}>&times;</span>
               <form ref={ref2} onSubmit={onSubmit}>
                 <TextField className="add-modal-textfield" color='secondary' value={name} type="text" label="Nom" onChange={e =>  setName(e.target.value)} fullWidth/>
                 <TextField className="add-modal-textfield" color='secondary' value={description} type="text" label="Description" onChange={e =>  setDescription(e.target.value)} fullWidth/>

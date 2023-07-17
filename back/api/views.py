@@ -11,10 +11,7 @@ from django.template.defaultfilters import slugify
 from api.models import Gallery, File, Year
 
 from api.serializers import (
-    GallerySerializer,
-    FileSerializer,
-    PromoSerializer,
-    YearSerializer,
+    GallerySerializer, FileSerializer, PromoSerializer, YearSerializer
 )
 
 import galerie.loader as loader
@@ -174,8 +171,8 @@ def delete_gallery(request):
 @api_view(["POST"])
 @permission_classes([IsAdminUser])
 def delete_pic(request):
-    gallery = Gallery.objects.get(name=request.data["name"])
-    file = File.objects.get(gallery=gallery, link=request.data["link"])
+    gallery =  Gallery.objects.get(name=request.data['name'])
+    file = File.objects.get(gallery=gallery, file_full_name=request.data['file_full_name'])
     file.delete()
     # TODO DELETE FILE CONCERNED
     return Response(FileSerializer(file).data)

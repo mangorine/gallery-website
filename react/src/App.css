@@ -66,6 +66,11 @@ body{
   text-decoration: solid underline white 2px;
 }
 
+@media screen and (max-width: 991px) {
+  .nav-text{
+    font-size: 30px;
+  }
+}
 .gallery-sticker{
   cursor:pointer;
   height: 170px;
@@ -139,6 +144,28 @@ body{
   cursor: pointer;
 }
 
+@media screen and (max-width: 991px) {
+  .close {
+    font-size: 50px;
+  }
+}
+
+.close-white-modal{
+  cursor: pointer;
+  color: #d8d8d8;
+  float:right;
+  margin-right: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-white-modal:hover,
+.close-white-modal:focus {
+  color: rgb(97, 97, 97);
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .download{
   margin-top: 13px;
   margin-right: 10px;
@@ -154,11 +181,25 @@ body{
   cursor: pointer;
 }
 
+@media screen and (max-width: 991px) {
+  .download {
+    margin-top: 36px;
+    margin-right: 20px;
+    scale: 2;
+  }
+}
+
 .arrow{
   position: absolute;
   top: 50%;
   cursor: pointer;
   color: #d8d8d8;
+}
+
+@media screen and (max-width: 991px) {
+  .arrow{
+    scale: 2;
+  }
 }
 
 .left-arrow{
@@ -219,7 +260,7 @@ body{
   
 .add-icon:hover,
 .add-icon:focus {
-  color: rgb(255, 255, 255);
+  color:rgb(255 196 37);
   cursor: pointer;
 }
   
@@ -241,7 +282,7 @@ body{
   
 .icon:hover,
 .icon:focus {
-  color: rgb(255, 255, 255);
+  color:rgb(255 196 37);
   cursor: pointer;
 }
 
@@ -308,10 +349,10 @@ body{
 
 .img-modal{
     position: absolute;
-    max-width: 90%;
-    transform: translateX(-50%);
+    max-width: 85%;
+    transform: translate(-50%, -50%);
     max-height: 90%;
-    top: 50px;
+    top: 50%;
     left: 50%;
     object-fit: cover;
 }
@@ -321,6 +362,7 @@ body{
   border: 1px solid #cfcfcf;
   height: 100%;
   padding: 20px;
+  
 }
 
 /*LOGIN PAGE*/
