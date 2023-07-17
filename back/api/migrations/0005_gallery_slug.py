@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('api', '0004_alter_gallery_name'),
+        ("api", "0004_alter_gallery_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='gallery',
-            name='slug',
-            field=models.SlugField(default='', max_length=1000),
+            model_name="gallery",
+            name="slug",
+            field=models.SlugField(default="", max_length=1000),
         ),
     ]

@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views import(
+from api.views import (
     getRoutes,
     get_galleries,
     get_pics,
@@ -12,12 +12,12 @@ from api.views import(
     delete_pic,
     generate_thumbnails,
     import_users,
-    FileUploadView
+    FileUploadView,
 )
 
 urlpatterns = [
     path("", getRoutes),
-    path("galleries/", get_galleries), 
+    path("galleries/", get_galleries),
     path("gallery/load", load_folder_into_gallery),
     path("gallery/gen_thumb", generate_thumbnails),
     path("gallery/pics/", get_pics),
@@ -28,6 +28,5 @@ urlpatterns = [
     path("galleries/create/", create_gallery),
     path("promo/create/", create_promo),
     path("year/create/", create_year),
-    path('import/', import_users)
-]    
-
+    path("import/", import_users),
+]

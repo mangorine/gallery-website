@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from api.models import (
-    File, Gallery, Material, Reaction, Student, Year, Promo
-)
+from api.models import File, Gallery, Student, Year, Promo
 
 # Register your models here.
 admin.site.register(Year)

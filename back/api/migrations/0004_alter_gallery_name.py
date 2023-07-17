@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('api', '0003_alter_gallery_date'),
+        ("api", "0003_alter_gallery_date"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='gallery',
-            name='name',
+            model_name="gallery",
+            name="name",
             field=models.CharField(max_length=1000, unique=True),
         ),
     ]

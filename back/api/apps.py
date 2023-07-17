@@ -1,16 +1,14 @@
 from django.apps import AppConfig
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import galerie.settings as settings
+
 
 class ApiConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'api'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "api"
 
     def ready(self):
-        from api.models import(
-            Student, Promo
-        )
+        from api.models import Student, Promo
         from django.contrib.auth.models import User
         from django_cas_ng.signals import cas_user_authenticated
 
@@ -18,12 +16,11 @@ class ApiConfig(AppConfig):
         def user_auth(sender, **kwargs):
             args = {}
             args.update(kwargs)
-            print(args.get('user'))
+            print(args.get("user"))
 
         @receiver(post_save, sender=User)
         def user_saved(sender, instance, created, **kwargs):
             print("user saved")
             if created:
-                student = Student(user = instance, promo = Promo.objects.last())
+                student = Student(user=instance, promo=Promo.objects.last())
                 student.save()
-
