@@ -32,8 +32,11 @@ export default function Gallery({props}){
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
-    if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
-    // add your conditional logic here
+    if (isLeftSwipe){
+      nextPicture()
+    } else if (isRightSwipe){
+      previousPicture()
+    }
   }
 
     //Modal open state
