@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,48 +14,111 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Gallery',
+            name="Gallery",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=1000)),
-                ('description', models.CharField(max_length=10000)),
-                ('date', models.DateField()),
-                ('visibility', models.CharField(choices=[('publique', 'Public'), ('école', 'School'), ('privée', 'Private')], default='privée', max_length=10)),
-                ('type', models.CharField(choices=[('photo', 'Photo'), ('video', 'Video')], default='photo', max_length=10)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=1000)),
+                ("description", models.CharField(max_length=10000)),
+                ("date", models.DateField()),
+                (
+                    "visibility",
+                    models.CharField(
+                        choices=[
+                            ("publique", "Public"),
+                            ("école", "School"),
+                            ("privée", "Private"),
+                        ],
+                        default="privée",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "type",
+                    models.CharField(
+                        choices=[("photo", "Photo"), ("video", "Video")],
+                        default="photo",
+                        max_length=10,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Material',
+            name="Material",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=1000)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=1000)),
             ],
         ),
         migrations.CreateModel(
-            name='Student',
+            name="Student",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('promo', models.IntegerField(choices=[(25, 'P25')], default=25)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("promo", models.IntegerField(choices=[(25, "P25")], default=25)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Reaction',
+            name="Reaction",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('gallery', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.gallery')),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.student')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "gallery",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.gallery"
+                    ),
+                ),
+                (
+                    "student",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.student"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='File',
+            name="File",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('file_name', models.CharField(max_length=1000)),
-                ('file_extension', models.CharField(max_length=100)),
-                ('file_full_name', models.CharField(max_length=1100)),
-                ('link', models.CharField(max_length=10000)),
-                ('gallery', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.gallery')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("file_name", models.CharField(max_length=1000)),
+                ("file_extension", models.CharField(max_length=100)),
+                ("file_full_name", models.CharField(max_length=1100)),
+                ("link", models.CharField(max_length=10000)),
+                (
+                    "gallery",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.gallery"
+                    ),
+                ),
             ],
         ),
     ]

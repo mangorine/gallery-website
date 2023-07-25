@@ -23,13 +23,13 @@ import django_cas_ng.views
 from . import views
 
 urlpatterns = [
-    path('', views.index),
-    path('admin/', admin.site.urls),
-    path('gallery/<int:id>', views.gallery),
-    path('galleries/', views.galleries, name='galleries'),
-    path('material/', views.material),
-    path('gestion/', include('gestion.urls')),
-    path('api/', include('api.urls')),
+    path("", views.index),
+    path("admin/", admin.site.urls),
+    path("gallery/<int:id>", views.gallery),
+    path("galleries/", views.galleries, name="galleries"),
+    path("material/", views.material),
+    path("gestion/", include("gestion.urls")),
+    path("api/", include("api.urls")),
     path(
         "login/",
         auth_views.LoginView.as_view(redirect_authenticated_user=True),
@@ -37,6 +37,12 @@ urlpatterns = [
     ),  # forces redirection of already authenticated users
     path("", include("django.contrib.auth.urls")),
     path("", views.root_redirect),
-    path('accounts/login/', django_cas_ng.views.LoginView.as_view(), name='cas_ng_login'),
-    path('accounts/logout/', django_cas_ng.views.LogoutView.as_view(), name='cas_ng_logout'),
+    path(
+        "accounts/login/", django_cas_ng.views.LoginView.as_view(), name="cas_ng_login"
+    ),
+    path(
+        "accounts/logout/",
+        django_cas_ng.views.LogoutView.as_view(),
+        name="cas_ng_logout",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

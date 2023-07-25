@@ -1,12 +1,10 @@
-
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from rest_framework.decorators import permission_classes
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 
 from .settings import LOGIN_REDIRECT_URL, LOGIN_URL
+
 
 def root_redirect(request):
     if request.user.is_authenticated:
@@ -35,19 +33,21 @@ def media(request, path):
     else:
         return HttpResponseForbidden()
 
+
 @login_required
 def gallery(request, id=-1):
-    context = {
-        'id': id
-    }
-    return render(request, 'gallery.html', context)
+    context = {"id": id}
+    return render(request, "gallery.html", context)
+
 
 @login_required
 def galleries(request):
-    return render(request, 'galleries.html')
+    return render(request, "galleries.html")
+
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, "index.html")
+
 
 def material(request):
-    return render(request, 'material.html')
+    return render(request, "material.html")

@@ -5,38 +5,56 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('api', '0001_initial'),
+        ("api", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Year',
+            name="Year",
             fields=[
-                ('name', models.CharField(max_length=10, primary_key=True, serialize=False)),
+                (
+                    "name",
+                    models.CharField(max_length=10, primary_key=True, serialize=False),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='file',
-            name='gallery',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='api.gallery'),
+            model_name="file",
+            name="gallery",
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="api.gallery",
+            ),
         ),
         migrations.CreateModel(
-            name='Promo',
+            name="Promo",
             fields=[
-                ('name', models.CharField(max_length=10, primary_key=True, serialize=False)),
-                ('first_year', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='api.year')),
+                (
+                    "name",
+                    models.CharField(max_length=10, primary_key=True, serialize=False),
+                ),
+                (
+                    "first_year",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to="api.year"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='gallery',
-            name='year',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.PROTECT, to='api.year'),
+            model_name="gallery",
+            name="year",
+            field=models.ForeignKey(
+                default=None, on_delete=django.db.models.deletion.PROTECT, to="api.year"
+            ),
         ),
         migrations.AlterField(
-            model_name='student',
-            name='promo',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='api.promo'),
+            model_name="student",
+            name="promo",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, to="api.promo"
+            ),
         ),
     ]
