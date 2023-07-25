@@ -14,6 +14,28 @@ import { ConstructionOutlined, Height } from '@mui/icons-material';
 
 export default function Gallery({props}){
 
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
+  
+  // the required distance between touchStart and touchEnd to be detected as a swipe
+  const minSwipeDistance = 50 
+  
+  const onTouchStart = (e) => {
+    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+  
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+  
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
+    // add your conditional logic here
+  }
+
     //Modal open state
     const [state, setState] = useState(false);
     //Current loaded picture in modal
@@ -92,52 +114,6 @@ export default function Gallery({props}){
                 console.log(error)
               }
             );
-            console.log('hello')
-            document.addEventListener('touchstart', handleTouchStart, false);
-            document.addEventListener('touchmove', handleTouchMove, false);
-
-                  var xDown = null;
-                  var yDown = null;
-
-                  function getTouches(evt) {
-                    return evt.touches ||             // browser API
-                            evt.originalEvent.touches; // jQuery
-                  }
-
-                  function handleTouchStart(evt) {
-            const firstTouch = getTouches(evt)[0];
-                  xDown = firstTouch.clientX;
-                  yDown = firstTouch.clientY;                                      
-        };
-
-                  function handleTouchMove(evt) {
-            if ( ! xDown || ! yDown ) {
-                return;
-            }
-
-                  var xUp = evt.touches[0].clientX;
-                  var yUp = evt.touches[0].clientY;
-
-                  var xDiff = xDown - xUp;
-                  var yDiff = yDown - yUp;
-                                                                                
-            if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-                if ( xDiff > 0 ) {
-                    console.log('right swipe')
-                  } else {
-                    console.log('left swipe')
-                  }                       
-            } else {
-                if ( yDiff > 0 ) {
-                    /* down swipe */
-                  } else {
-                    /* up swipe */
-                  }                                                                 
-            }
-                  /* reset values */
-                  xDown = null;
-                  yDown = null;                                             
-        };
     }, [])
 
     const ref = useRef(null);
@@ -162,6 +138,7 @@ export default function Gallery({props}){
 
     return (
       <>
+      <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}/>
       <CustomNavbar/>
         <div className="introductive-content">
           <h2 className="gallery-title">{name}</h2>
