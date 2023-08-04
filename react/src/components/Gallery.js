@@ -10,7 +10,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import GallerySticker from './GallerySticker'
 import Cookies from 'js-cookie';
 import CustomNavbar from './Navbar';
-import { ConstructionOutlined, Height } from '@mui/icons-material';
 
 export default function Gallery({props}){
 
@@ -53,7 +52,7 @@ export default function Gallery({props}){
       headers: { 
         'Content-Type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken') },
-      body: JSON.stringify({ id: gallery_id })
+      body: JSON.stringify({ slug: gallery_slug })
     };
 
     //Open image in full screen when vignette is clicked

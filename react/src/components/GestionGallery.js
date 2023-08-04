@@ -11,7 +11,7 @@ import GallerySticker from './GallerySticker'
 import Cookies from 'js-cookie';
 import CustomNavbar from './Navbar';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Stack from '@mui/material/Stack';
+import {Stack, Select, MenuItem} from '@mui/material';
 
 export default function Gallery({props}){
 
@@ -24,6 +24,8 @@ export default function Gallery({props}){
     const [name, setName] = useState('');
     const [addModalState, setaddModalState] = useState(false);
 
+    const [visibility, setVisibility] = useState('privée');
+
     const cookie = Cookies.get('csrftoken')
 
     const requestOptions = {
@@ -31,7 +33,7 @@ export default function Gallery({props}){
       headers: { 
         'Content-Type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken') },
-      body: JSON.stringify({ id: gallery_id })
+      body: JSON.stringify({ slug: gallery_slug })
     };
 
     //Open image in full screen when vignette is clicked
@@ -138,6 +140,7 @@ export default function Gallery({props}){
             .then(
                 (result) => {
                   setName(result.name)
+                  setVisibility(result.visibility)
                 },
                 (error) => {
                   console.log(error)
@@ -170,6 +173,26 @@ export default function Gallery({props}){
           },[]);
 
           
+    const changeVisibility = (visibility) => {
+      const visibilityOptions = {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRFToken': Cookies.get('csrftoken') },
+        body: JSON.stringify({ slug: gallery_slug, visibility: visibility})
+      };
+
+      fetch('/api/gallery/change_visibility/', visibilityOptions)
+            .then(res => res.json())
+            .then(
+              (result) => {
+                setVisibility(result.visibility)
+              },
+              (error) => {
+                console.log(error)
+              }
+          );
+    }
     return (
       <>
       <CustomNavbar/>
@@ -179,6 +202,15 @@ export default function Gallery({props}){
             <span className='centered-button'>
               <AddCircleOutlineIcon className="icon" onClick={openAddModal}/>
               <DeleteIcon onClick={deleteGallery} className="icon"/>
+              <Select style={{padding:0, height: "40px"}}value={visibility} onChange={e => 
+              {
+                setVisibility(e.target.value)
+                changeVisibility(e.target.value)
+              }} label="Visiblité">
+                  <MenuItem value={'privée'}>Privée</MenuItem>
+                  <MenuItem value={'école'}>École</MenuItem>
+                  <MenuItem value={'publique'}>Publique</MenuItem>
+                </Select>
               </span>
           </Stack>
         </div>

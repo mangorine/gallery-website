@@ -11,8 +11,8 @@ def index_view(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def gallery_view(request, id=-1):
-    context = {"id": id}
+def gallery_view(request, slug=''):
+    context = {"slug": slug}
     if request.method == "POST" and request.FILES["zipfile"]:
         file = request.FILES["zipfile"]
         fs = FileSystemStorage()
