@@ -25,22 +25,22 @@ export default function Gallery() {
       .then(res => res.json())
       .then(
         (result) => {
+          fetch('/api/years', requestOptions)
+            .then(res => res.json())
+            .then(
+              (result) => {
+                let menuCompTemp = []
+                for (const year in result) {
+                  menuCompTemp.push(<MenuItem value={result[year].name}>{result[year].name}</MenuItem>)
+                }
+                setMenuComponents(menuCompTemp)
+                setYear(result[0].name)
+              },
+              (error) => {
+                console.log(error)
+              }
+            );
           setResult(result)
-        },
-        (error) => {
-          console.log(error)
-        }
-      );
-      fetch('/api/years', requestOptions)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          let menuCompTemp = []
-          for (const year in result) {
-            menuCompTemp.push(<MenuItem value={result[year].name}>{result[year].name}</MenuItem>)
-          }
-          setMenuComponents(menuCompTemp)
-          setYear(result[0].name)
         },
         (error) => {
           console.log(error)

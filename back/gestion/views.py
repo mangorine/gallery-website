@@ -19,7 +19,7 @@ def gallery_view(request, slug=''):
         filename = fs.save(file.name, file)
         uploaded_file_url = fs.url(filename)
 
-        gal = Gallery.objects.get(id=id)
+        gal = Gallery.objects.get(slug=slug)
         print(uploaded_file_url.split("/")[2])
         load_zip_into_gallery(uploaded_file_url.split("/")[2], gal)
         fs.delete(filename)
