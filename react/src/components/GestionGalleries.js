@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import GalleryLink from './GalleryLink';
 import CustomNavbar from './Navbar'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { TextField, Button, Container, Stack, Select, MenuItem } from '@mui/material';
+import { TextField, Button, Stack, Select, MenuItem } from '@mui/material';
 
 export default function Gallery(){
     const [addModalState, setaddModalState] = useState(false);
@@ -16,6 +16,7 @@ export default function Gallery(){
     const [description, setDescription] = useState('')
     const [visibility, setVisibility] = useState('privée')
     const [type, setType] = useState('photo')
+    const [error, setError] = useState('')
 
     const requestOptions = {
         method: 'GET',
@@ -44,7 +45,12 @@ export default function Gallery(){
               .then(res => res.json())
               .then(
                 (result) => {
-                  window.location.reload(false)                  
+                  if(result.name == undefined)
+                    setError('Une erreur inconnue est survenue')
+                  if(result.status != undefined && result.status == 'error'){
+                    setError(result.message)
+                  }else
+                    window.location.reload(false)                  
                 },
                 (error) => {
                   console.log(error)
@@ -62,7 +68,7 @@ export default function Gallery(){
                     galleriesTemp.push(result[pic])
                   }
                   galleriesTemp.forEach((gal, index) =>{
-                    compTemp.push(<GalleryLink key={gal.id} link={'/gestion/gallery/' + gal.id} sticker={gal.sticker_url} title={gal.name}/>)
+                    compTemp.push(<GalleryLink key={gal.slug} link={'/gestion/gallery/' + gal.slug} sticker={gal.sticker_url} title={gal.name}/>)
                   })
                   setGalleriesComp(compTemp)
                 },
@@ -116,6 +122,7 @@ export default function Gallery(){
                   <MenuItem value={'photo'}>Photo</MenuItem>
                   <MenuItem value={'video'}>Vidéo</MenuItem>
                 </Select>
+                <p style={{color: 'red'}}>{error}</p>
                 <Button className="add-modal-create-button" variant='outlined' color='secondary' onClick={onSubmit} fullWidth>Créer</Button>
               </form>
             </div>

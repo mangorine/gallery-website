@@ -43,6 +43,14 @@ class Gallery(models.Model):
     )
     year = models.ForeignKey(Year, on_delete=models.PROTECT, default=None)
 
+    def can_user_access(self, user):
+        if(not user.is_authenticated and (not self.visibility == Gallery.Visibility.PUBLIC)):
+            return False
+        elif(not user.is_staff and not user.is_superuser and self.visibility is Gallery.Visibility.PRIVATE):
+            return False
+        else: 
+            return True
+
 
 class File(models.Model):
     id = models.AutoField(primary_key=True)

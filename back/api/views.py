@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.parsers import FileUploadParser
 
@@ -72,11 +73,16 @@ def getRoutes(request):
 
     return Response(routes)
 
-
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def get_galleries(request):
-    galleries = Gallery.objects.filter(visibility=Gallery.Visibility.PUBLIC).order_by(
+    if(not request.user.is_authenticated):
+        galleries = Gallery.objects.filter(visibility=Gallery.Visibility.PUBLIC).order_by(
+        "-date"
+    )
+    elif(request.user.is_staff or request.user.is_superuser):
+        galleries = Gallery.objects.all().order_by("-date")
+    else:
+        galleries = Gallery.objects.filter(Q(visibility=Gallery.Visibility.SCHOOL) | Q(visibility=Gallery.Visibility.PUBLIC)).order_by(
         "-date"
     )
     serializer = GallerySerializer(galleries, many=True)
@@ -84,24 +90,34 @@ def get_galleries(request):
 
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated])
 def get_gallery(request):
-    print(request.data["id"])
-    gallery = Gallery.objects.filter(id=request.data["id"])
+    gallery = Gallery.objects.filter(slug=request.data["slug"])
     if gallery.count() == 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    serializer = GallerySerializer(gallery[0])
-    return Response(serializer.data)
+    #check if request user is allowed to see this gallery
+    if(not request.user.is_authenticated and (not gallery[0].visibility == Gallery.Visibility.PUBLIC)):
+        return Response({"status": "error", "message":"Vous n'êtes pas autorisé à voir cette galerie."}, status=403)
+    elif(not request.user.is_staff and not request.user.is_superuser and gallery[0].visibility is Gallery.Visibility.PRIVATE):
+        return Response({"status": "error", "message":"Vous n'êtes pas autorisé à voir cette galerie."}, status=403)
+    else: 
+        serializer = GallerySerializer(gallery[0])
+        return Response(serializer.data)
 
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated])
 def get_pics(request):
-    files = File.objects.filter(gallery=request.data["id"])
-    if files.count() == 0:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    serializer = FileSerializer(files, many=True)
-    return Response(data=serializer.data)
+    gallery = Gallery.objects.filter(slug=request.data["slug"])
+    if gallery.count() == 0:
+        return Response({"status": "error", "message":"Cette galerie n'existe pas."}, status=404)
+    #check if request user is allowed to see this gallery
+    if(not request.user.is_authenticated and (not gallery[0].visibility == Gallery.Visibility.PUBLIC)):
+        return Response({"status": "error", "message":"Vous n'êtes pas autorisé à voir cette galerie."}, status=403)
+    elif(not request.user.is_staff and not request.user.is_superuser and gallery[0].visibility is Gallery.Visibility.PRIVATE):
+        return Response({"status": "error", "message":"Vous n'êtes pas autorisé à voir cette galerie."}, status=403)
+    else: 
+        files = File.objects.filter(gallery=gallery.first())
+        serializer = FileSerializer(files, many=True)
+        return Response(data=serializer.data)
 
 
 @api_view(["POST"])
@@ -110,12 +126,20 @@ def create_gallery(request):
     if "year" not in request.data:
         request.data["year"] = Year.objects.last().pk
     request.data["slug"] = slugify(request.data["name"])
+    if(request.data['name'] == ''):
+        return Response({"status":"error", "message": "Le nom de la galerie ne peut pas être vide."}, status=400)
+    if(Gallery.objects.filter(slug=request.data["slug"]).exists()):
+        return Response({"status":"error", "message": "Une galerie avec ce nom existe déjà."}, status=400)
     serializer = GallerySerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
-    os.mkdir(str(settings.BASE_DIR) + "/media/" + request.data["slug"])
-    os.mkdir(str(settings.BASE_DIR) + "/media/" + request.data["slug"] + "/uploads")
-    os.mkdir(str(settings.BASE_DIR) + "/media/" + request.data["slug"] + "/thumbnails")
+    try:
+        os.mkdir(str(settings.BASE_DIR) + "/media/" + request.data["slug"])
+        os.mkdir(str(settings.BASE_DIR) + "/media/" + request.data["slug"] + "/uploads")
+        os.mkdir(str(settings.BASE_DIR) + "/media/" + request.data["slug"] + "/thumbnails")
+    except:
+        return Response({"status":"error", "message": "Impossible de créer les dossiers galeries."}, status=400)
+
     return Response(serializer.data)
 
 
@@ -145,7 +169,7 @@ def create_promo(request):
     )
 )
 def load_folder_into_gallery(request):
-    gal = Gallery.objects.get(id=request.data["id"])
+    gal = Gallery.objects.get(slug=request.data["slug"])
     loader.load_folder_into_gallery(request.data["folder"], gal)
     return Response(GallerySerializer(gal).data)
 
@@ -161,6 +185,16 @@ def generate_thumbnails(request):
     loader.generate_thumbnails(request.data["folder"])
     return Response(status=200)
 
+@api_view(["POST"])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def change_visibility(request):
+    gallery = Gallery.objects.filter(slug=request.data["slug"])
+    if gallery.count() == 0:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    gallery = gallery[0]
+    gallery.visibility = request.data["visibility"]
+    gallery.save()
+    return Response(GallerySerializer(gallery).data)
 
 @api_view(["POST"])
 @permission_classes([IsAdminUser])
@@ -202,6 +236,12 @@ def import_users(request):
     read_users(str(settings.BASE_DIR) + "/api/users.sql")
     return Response(status=200)
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def years(request):
+    years = Year.objects.all().order_by("pk")
+    serializer = YearSerializer(years, many=True)
+    return Response(serializer.data)
 
 def read_users(file):
     f = open(file, encoding="utf8")

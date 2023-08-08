@@ -11,15 +11,15 @@ def index_view(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def gallery_view(request, id=-1):
-    context = {"id": id}
+def gallery_view(request, slug=''):
+    context = {"slug": slug}
     if request.method == "POST" and request.FILES["zipfile"]:
         file = request.FILES["zipfile"]
         fs = FileSystemStorage()
         filename = fs.save(file.name, file)
         uploaded_file_url = fs.url(filename)
 
-        gal = Gallery.objects.get(id=id)
+        gal = Gallery.objects.get(slug=slug)
         print(uploaded_file_url.split("/")[2])
         load_zip_into_gallery(uploaded_file_url.split("/")[2], gal)
         fs.delete(filename)

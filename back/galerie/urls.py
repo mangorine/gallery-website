@@ -25,7 +25,7 @@ from . import views
 urlpatterns = [
     path("", views.index),
     path("admin/", admin.site.urls),
-    path("gallery/<int:id>", views.gallery),
+    path("gallery/<slug:slug>", views.gallery),
     path("galleries/", views.galleries, name="galleries"),
     path("material/", views.material),
     path("gestion/", include("gestion.urls")),
@@ -45,4 +45,9 @@ urlpatterns = [
         django_cas_ng.views.LogoutView.as_view(),
         name="cas_ng_logout",
     ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    urlpatterns.append(path("media/<path:path>", views.media))

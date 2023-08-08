@@ -71,8 +71,15 @@ Cette erreur est souvent engendrée par un problème préalable dans le déploie
 
 ### Backend
 
+Le backend du site est développé en Python avec le framework Django. Le gestionnaire de dépendance utilisé est Poetry. Le back tourne dans un container docker et permet de servir les pages publiques contenant du code JS issu d'un bundle React. Le back sert également une API utile pour accéder aux données depuis le front.
+En prod, le container back lance un serveur gunicors qui fait le lien entre NGINX et le serveur Django Python.
+
 ### Frontend
 
+Le frontend du site est développé en JavaScript avec le framework React. Les fichiers JS sont, lors du lancement du container webinstaller, ajoutés dans des fichiers "bundles" qui sont placés dans le dossier ``` /src/galerie/static/react/``` du back qui pourra ensuite les intégrer dans les templates html. Ces bundles contiennent l'ensemble du contenu React.
+
 ### Nginx
+
+Lorsqu'une requête entrante est dirrigé vers ponthe.enpc.org, le serveur NGINX de ponster la redirige vers le serveur NGINX hebergé dans un container docker qui ensuite redirigé la requête vers gunicorn.   
 
 ### Docker
