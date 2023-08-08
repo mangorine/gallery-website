@@ -22,7 +22,7 @@ services:
       - ./back/galerie/media/:/src/galerie/media
       - ./backups:/backups
     ports:
-      - "$BACK_PORT:8000"
+      - $BACK_PORT:8000
     depends_on:
       - db
       - webinstaller
