@@ -7,6 +7,7 @@ while ping -c 1 webinstaller > /dev/null; do
     sleep 0.1
 done
 echo "Webinstaller exited."
+
 echo "Copying static files..."
 python3 manage.py collectstatic --noinput
 
@@ -16,6 +17,15 @@ while ! nc -z $DB_HOST $DB_PORT; do
 done
 echo "PostgreSQL started."
 
+echo "Migrating..."
 python3 manage.py migrate --noinput
+
+echo "Starting redis server..."
+redis-server 1>/dev/null 2>&1 &
+
+echo "Starting celery..."
+celery -A galerie worker --loglevel=info --logfile=/var/log/celery.log --detach
+
+echo "Starting gunicorn server..."
 
 exec "$@"

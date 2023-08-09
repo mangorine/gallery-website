@@ -73,6 +73,7 @@ COPY . .
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     netcat=1.10-46 \
+    redis=5:6.0.16-1+deb11u2 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./entrypoint-dev.sh /usr/local/bin/
@@ -101,6 +102,7 @@ COPY . .
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     netcat=1.10-46 \
+    redis=5:6.0.16-1+deb11u2 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i 's/\r$//g' /src/entrypoint-prod.sh \
