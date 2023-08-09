@@ -2,8 +2,11 @@ FROM node:17-alpine as node_base
 
 RUN mkdir /app && chown node /app && chmod 700 /app
 RUN mkdir /var/node_modules && chown node /var/node_modules
+RUN mkdir /react && chown node /react && chmod 700 /react
 
 WORKDIR /app
+
+# ======================== DEV ENVIRONMENT =========================
 
 FROM node_base as development
 
@@ -16,6 +19,7 @@ USER node
 
 CMD ["/usr/local/bin/install-frontend-dev.sh"]
 
+# ======================== PROD ENVIRONMENT ========================
 
 FROM node_base as production
 
@@ -28,8 +32,5 @@ RUN sed -i 's/\r$//g' /usr/local/bin/install-frontend-prod.sh \
     && chmod +x /usr/local/bin/install-frontend-prod.sh
 
 USER node
-
-# Supprimer les node_modules potentiellement existants
-RUN rm -rf ./react/node_modules
 
 CMD ["/usr/local/bin/install-frontend-prod.sh"]

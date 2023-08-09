@@ -27,7 +27,7 @@ services:
     volumes:
       - bundles:/src/galerie/static/react
       - static_volume:/src/static/
-      - ./back/media:/src/media/
+      - ./media:/src/media/
       - ./backups:/backups
     restart: always
     environment:
@@ -54,7 +54,7 @@ services:
       - back
     volumes:
       - static_volume:/src/static
-      - ./back/media:/src/media
+      - ./media:/src/media
     restart: always
     networks:
       - nginx_link
@@ -64,7 +64,7 @@ services:
       dockerfile: ./webinstaller/Dockerfile
       target: production
     volumes:
-      - bundles:/src/galerie/static/react
+      - bundles:/react
     networks:
       - ping
 

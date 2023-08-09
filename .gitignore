@@ -4,6 +4,7 @@
 *.sqlite3
 /database
 /backups
+/media
 
 # misc
 .DS_Store
