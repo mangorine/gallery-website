@@ -97,4 +97,4 @@ Concernant les volumes, les dossiers ```database/```, ```media/``` et ```backups
 
 L'ensemble des variables d'environnement sont contenus dans le fichier ```.env``` que l'on peut modifier à sa convenance.
 
-<ins>**NB :**</ins> Si la variable DB_PASSWORD est modifié assurez-vous de supprimer le dossier ```database/``` car celui-ci ne sera pas recréer !
+<ins>**NB :**</ins> Si la variable DB_PASSWORD est modifiée assurez-vous de supprimer le dossier ```database/``` car celui-ci ne sera pas recréé !
