@@ -10,6 +10,7 @@ services:
     volumes:
       - ./database:/var/lib/postgresql/data
       - ./backups:/backups
+
   back:
     build:
       context: back
@@ -36,6 +37,7 @@ services:
       DEBUG: $DEBUG
       DOMAIN_NAME: $DOMAIN_NAME
       TRUSTED_ORIGIN: $TRUSTED_ORIGIN
+
   webinstaller:
     build:
       context: webinstaller

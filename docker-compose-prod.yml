@@ -13,14 +13,13 @@ services:
     restart: always
     networks:
       - db_link
+
   back:
     build:
       context: back
       dockerfile: Dockerfile
       target: production
     command: gunicorn galerie.wsgi:application --bind 0.0.0.0:8000
-    expose:
-      - 8000
     depends_on:
       db:
         condition: service_started
@@ -45,9 +44,9 @@ services:
       SECURE_SSL_REDIRECT: $SECURE_SSL_REDIRECT
       TRUSTED_ORIGIN: $TRUSTED_ORIGIN
     networks:
-      - ping
       - db_link
       - nginx_link
+
   nginx:
     build: ./nginx
     ports:
@@ -60,6 +59,7 @@ services:
     restart: always
     networks:
       - nginx_link
+
   webinstaller:
     build:
       context: ./
@@ -67,18 +67,14 @@ services:
       target: production
     volumes:
       - bundles:/react
-    networks:
-      - ping
 
 volumes:
   static_volume:
-  database:
+    driver: local
   bundles:
     driver: local
 
 networks:
-  ping:
-    driver: bridge
   db_link:
     driver: bridge
   nginx_link:
