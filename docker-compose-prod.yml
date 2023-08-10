@@ -29,7 +29,7 @@ services:
     volumes:
       - bundles:/src/galerie/static/react
       - static_volume:/src/static/
-      - ./media:/src/media/
+      - ./back/media:/src/media/
       - ./backups:/backups
     restart: always
     environment:
@@ -56,7 +56,7 @@ services:
       - back
     volumes:
       - static_volume:/src/static
-      - ./media:/src/media
+      - ./back/media:/src/media
     restart: always
     networks:
       - nginx_link

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "Creating media files..."
+mkdir -p media/
+
 echo "Waiting for postgres..."
 
 while ! nc -z $DB_HOST $DB_PORT; do
