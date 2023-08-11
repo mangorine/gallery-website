@@ -20,8 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build containers
-        run: docker compose -f docker-compose.prod.yaml build
+        run: docker compose -f docker-compose-prod.yaml build
       - name: Start containers
-        run: docker compose -f docker-compose.prod.yaml up -d
+        run: docker compose -f docker-compose-prod.yaml up -d
       - name: Run tests
         run: docker compose exec -T back python manage.py test
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install linter
+        run: pip install black flake8 isort
+      - name: Lint
+        run: black --check && flake8 --config .github/linters/.flake8 && isort --profile black
