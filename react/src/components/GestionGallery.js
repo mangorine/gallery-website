@@ -30,7 +30,7 @@ export default function Gallery({props}){
 
     const requestOptions = {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken') },
       body: JSON.stringify({ slug: gallery_slug })
@@ -59,7 +59,7 @@ export default function Gallery({props}){
     const nextPicture = () => {
       console.log(pics)
       let nextId = pics.indexOf(current)+1;
-      if(nextId == pics.length) nextId = 0 
+      if(nextId == pics.length) nextId = 0
       setCurrent(pics[nextId]);
     };
 
@@ -67,7 +67,7 @@ export default function Gallery({props}){
       const array = current.split('/')
       const deleteOptions = {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': Cookies.get('csrftoken') },
         body: JSON.stringify({ name: name, file_full_name: array[array.length-1] })
@@ -83,11 +83,11 @@ export default function Gallery({props}){
               }
             );
     };
-    
+
     const deleteGallery = () => {
       const deleteOptions = {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': Cookies.get('csrftoken') },
         body: JSON.stringify({ name: name})
@@ -121,8 +121,8 @@ export default function Gallery({props}){
             picsTemp.push(result[pic].link + '/uploads/' + result[pic].file_full_name)
             picsDiv.push(
             <Col key={pic} xs="12" sm="6" md="4" lg="2">
-              <GallerySticker img={result[pic].link + '/uploads/' + result[pic].file_full_name} 
-                              thumb={result[pic].link + '/thumbnails/' + result[pic].file_full_name} 
+              <GallerySticker img={result[pic].link + '/uploads/' + result[pic].file_full_name}
+                              thumb={result[pic].link + '/thumbnails/' + result[pic].file_full_name}
                               modal_func={toggleModal}/>
             </Col>
             )
@@ -146,9 +146,9 @@ export default function Gallery({props}){
                   console.log(error)
                 }
               );
-        
+
     }, [])
-    
+
 
     const ref = useRef(null);
     const ref2 = useRef(null);
@@ -158,8 +158,8 @@ export default function Gallery({props}){
 
           useEffect(() => {
             const handleClickOutside = (event) => {
-              if (ref.current && !ref.current.contains(event.target) 
-                && ref2.current && !ref2.current.contains(event.target) 
+              if (ref.current && !ref.current.contains(event.target)
+                && ref2.current && !ref2.current.contains(event.target)
                 && ref3.current && !ref3.current.contains(event.target)
                 && ref4.current && !ref4.current.contains(event.target)
                 && ref5.current && !ref5.current.contains(event.target)) {
@@ -172,11 +172,11 @@ export default function Gallery({props}){
             };
           },[]);
 
-          
+
     const changeVisibility = (visibility) => {
       const visibilityOptions = {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': Cookies.get('csrftoken') },
         body: JSON.stringify({ slug: gallery_slug, visibility: visibility})
@@ -202,7 +202,7 @@ export default function Gallery({props}){
             <span className='centered-button'>
               <AddCircleOutlineIcon className="icon" onClick={openAddModal}/>
               <DeleteIcon onClick={deleteGallery} className="icon"/>
-              <Select style={{padding:0, height: "40px"}}value={visibility} onChange={e => 
+              <Select style={{padding:0, height: "40px"}}value={visibility} onChange={e =>
               {
                 setVisibility(e.target.value)
                 changeVisibility(e.target.value)
@@ -250,7 +250,7 @@ export default function Gallery({props}){
           )
         }
       </>
-      
-      
+
+
       );
     }

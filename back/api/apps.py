@@ -8,7 +8,7 @@ class ApiConfig(AppConfig):
     name = "api"
 
     def ready(self):
-        from api.models import Student, Promo
+        from api.models import Promo, Student
         from django.contrib.auth.models import User
         from django_cas_ng.signals import cas_user_authenticated
 

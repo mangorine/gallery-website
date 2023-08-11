@@ -81,7 +81,7 @@ Le frontend du site est développé en JavaScript avec le framework React. Les f
 
 ### Nginx
 
-Lorsqu'une requête entrante est dirrigé vers ponthe.enpc.org, le serveur NGINX de Ponster la redirige vers le serveur NGINX hebergé dans un container docker qui ensuite redirigé la requête vers gunicorn ou sert directement si il s'agit de statics ou de medias. 
+Lorsqu'une requête entrante est dirrigé vers ponthe.enpc.org, le serveur NGINX de Ponster la redirige vers le serveur NGINX hebergé dans un container docker qui ensuite redirigé la requête vers gunicorn ou sert directement si il s'agit de statics ou de medias.
 
 ### Docker
 

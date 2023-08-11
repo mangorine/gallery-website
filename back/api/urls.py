@@ -1,21 +1,21 @@
-from django.urls import path
 from api.views import (
-    getRoutes,
-    get_galleries,
-    get_pics,
+    FileUploadView,
+    change_visibility,
     create_gallery,
     create_promo,
     create_year,
-    load_folder_into_gallery,
     delete_gallery,
-    get_gallery,
     delete_pic,
     generate_thumbnails,
+    get_galleries,
+    get_gallery,
+    get_pics,
+    getRoutes,
     import_users,
-    change_visibility,
+    load_folder_into_gallery,
     years,
-    FileUploadView,
 )
+from django.urls import path
 
 urlpatterns = [
     path("", getRoutes),

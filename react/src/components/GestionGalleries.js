@@ -20,7 +20,7 @@ export default function Gallery(){
 
     const requestOptions = {
         method: 'GET',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': Cookies.get('csrftoken') },
       };
@@ -36,7 +36,7 @@ export default function Gallery(){
       const onSubmit = () => {
         const submitOptions = {
           method: 'POST',
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': Cookies.get('csrftoken') },
             body: JSON.stringify({name: name, description: description, visibility: visibility,  type: type})
@@ -50,7 +50,7 @@ export default function Gallery(){
                   if(result.status != undefined && result.status == 'error'){
                     setError(result.message)
                   }else
-                    window.location.reload(false)                  
+                    window.location.reload(false)
                 },
                 (error) => {
                   console.log(error)
@@ -77,7 +77,7 @@ export default function Gallery(){
                 }
               );
       }, [])
-      
+
 
       const ref = useRef(null);
       const ref2 = useRef(null);
@@ -94,7 +94,7 @@ export default function Gallery(){
               document.removeEventListener('click', handleClickOutside, true);
             };
           },[]);*/
-          
+
     return(
       <>
         <CustomNavbar/>

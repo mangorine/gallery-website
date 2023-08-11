@@ -1,10 +1,11 @@
 import os
-import galerie.settings as settings
-from api.models import File
-from PIL import Image, ImageOps
 import zipfile
-from api.models import Gallery
+
+import galerie.settings as settings
+from api.models import File, Gallery
 from celery import shared_task
+from PIL import Image, ImageOps
+
 
 def load_zip_into_gallery(zip_dir, gal):
     unzip(zip_dir, gal.slug)

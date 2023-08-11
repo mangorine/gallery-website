@@ -52,7 +52,7 @@ export default function Gallery() {
     let galleriesTemp = []
     let compTemp = []
     for (const pic in result) {
-      if(result[pic].year == year) 
+      if(result[pic].year == year)
         galleriesTemp.push(result[pic])
     }
     galleriesTemp.forEach((gal, index) => {
@@ -69,7 +69,7 @@ export default function Gallery() {
         <Container>
           <Row>
           <Col xs="12" sm="6" md="4" lg="2">
-          <Select style={{marginTop: '100px', marginBottom: '40px', width: '100%', padding:0, height: "40px"}} value={year} onChange={e => 
+          <Select style={{marginTop: '100px', marginBottom: '40px', width: '100%', padding:0, height: "40px"}} value={year} onChange={e =>
                 {
                     setYear(e.target.value)
                 }} label="Visiblité">
@@ -78,13 +78,13 @@ export default function Gallery() {
         </Col>
           </Row>
         </Container>
-        
+
         <Container fluid>
           <Row>
-          
+
           </Row>
           <Row className="g-1">
-          
+
               {galleriesComp}
           </Row>
         </Container>

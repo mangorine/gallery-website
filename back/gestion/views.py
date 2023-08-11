@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from api.models import Gallery
 from django.contrib.auth.decorators import user_passes_test
 from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render
 from galerie.loader import load_zip_into_gallery
-from api.models import Gallery
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -11,7 +11,7 @@ def index_view(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def gallery_view(request, slug=''):
+def gallery_view(request, slug=""):
     context = {"slug": slug}
     if request.method == "POST" and request.FILES["zipfile"]:
         file = request.FILES["zipfile"]

@@ -1,11 +1,10 @@
+from api.models import Gallery
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 
 from .settings import LOGIN_REDIRECT_URL, LOGIN_URL
 
-from api.models import Gallery
 
 def root_redirect(request):
     if request.user.is_authenticated:
@@ -22,13 +21,13 @@ def media(request, path):
     """
     user = request.user
     dirs = path.split("/")
-    gallery =  Gallery.objects.filter(slug=dirs[0])
+    gallery = Gallery.objects.filter(slug=dirs[0])
     if gallery.count() == 0:
         print("gallery not found")
         return HttpResponseForbidden()
     else:
         access_granted = gallery.first().can_user_access(user)
-    
+
     if access_granted:
         response = HttpResponse()
         # Content-type will be detected by nginx

@@ -9,7 +9,7 @@ server{
 		proxy_read_timeout 200;
 		client_max_body_size 3M;
             }
-        
+
     ssl_certificate /etc/letsencrypt/live/ponthe.enpc.org/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/ponthe.enpc.org/privkey.pem; # managed by Certbot
 }

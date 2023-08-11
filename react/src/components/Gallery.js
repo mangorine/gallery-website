@@ -15,17 +15,17 @@ export default function Gallery({props}){
 
   const [touchStart, setTouchStart] = useState(null)
   const [touchEnd, setTouchEnd] = useState(null)
-  
+
   // the required distance between touchStart and touchEnd to be detected as a swipe
-  const minSwipeDistance = 50 
-  
+  const minSwipeDistance = 50
+
   const onTouchStart = (e) => {
     setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
     setTouchStart(e.targetTouches[0].clientX)
   }
-  
+
   const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
-  
+
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return
     const distance = touchStart - touchEnd
@@ -49,7 +49,7 @@ export default function Gallery({props}){
 
     const requestOptions = {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': Cookies.get('csrftoken') },
       body: JSON.stringify({ slug: gallery_slug })
@@ -70,7 +70,7 @@ export default function Gallery({props}){
     const nextPicture = () => {
       console.log(pics)
       let nextId = pics.indexOf(current)+1;
-      if(nextId == pics.length) nextId = 0 
+      if(nextId == pics.length) nextId = 0
       setCurrent(pics[nextId]);
     };
 
@@ -92,8 +92,8 @@ export default function Gallery({props}){
                   picsTemp.push(result[pic].link + '/uploads/' + result[pic].file_full_name)
                   picsDiv.push(
                   <Col key={pic} xs="12" sm="6" md="4" lg="2">
-                    <GallerySticker img={result[pic].link + '/uploads/' + result[pic].file_full_name} 
-                                    thumb={result[pic].link + '/thumbnails/' + result[pic].file_full_name} 
+                    <GallerySticker img={result[pic].link + '/uploads/' + result[pic].file_full_name}
+                                    thumb={result[pic].link + '/thumbnails/' + result[pic].file_full_name}
                                     modal_func={toggleModal}/>
                   </Col>
                   )
@@ -125,8 +125,8 @@ export default function Gallery({props}){
 
     useEffect(() => {
             const handleClickOutside = (event) => {
-              if (ref.current && !ref.current.contains(event.target) 
-                && ref2.current && !ref2.current.contains(event.target) 
+              if (ref.current && !ref.current.contains(event.target)
+                && ref2.current && !ref2.current.contains(event.target)
                 && ref3.current && !ref3.current.contains(event.target)
                 && ref4.current && !ref4.current.contains(event.target)) {
                 closeModal()
@@ -150,7 +150,7 @@ export default function Gallery({props}){
             {picsList}
           </Row>
         </Container>
-    
+
         {state && (
           <div className='pic-modal'>
             <ArrowBackIcon ref={ref2} onClick={previousPicture} className='arrow left-arrow'/>
@@ -168,7 +168,7 @@ export default function Gallery({props}){
           )
         }
       </>
-      
-      
+
+
       );
     }

@@ -1,7 +1,8 @@
-from rest_framework import serializers
-from api.models import Student, Gallery, Material, File, Reaction, Year, Promo
-from django.contrib.auth.models import User
 import random
+
+from api.models import File, Gallery, Material, Promo, Reaction, Student, Year
+from django.contrib.auth.models import User
+from rest_framework import serializers
 
 random.seed()
 
