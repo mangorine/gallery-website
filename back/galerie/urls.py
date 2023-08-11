@@ -24,11 +24,13 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path("", views.index),
+    path("", views.index, name="index"),
+    path("", views.root_redirect),
+    path("", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
-    path("gallery/<slug:slug>", views.gallery),
+    path("gallery/<slug:slug>", views.gallery, name="gallery"),
     path("galleries/", views.galleries, name="galleries"),
-    path("material/", views.material),
+    path("material/", views.material, name="material"),
     path("gestion/", include("gestion.urls")),
     path("api/", include("api.urls")),
     path(
@@ -36,8 +38,6 @@ urlpatterns = [
         auth_views.LoginView.as_view(redirect_authenticated_user=True),
         name="login",
     ),  # forces redirection of already authenticated users
-    path("", include("django.contrib.auth.urls")),
-    path("", views.root_redirect),
     path(
         "accounts/login/", django_cas_ng.views.LoginView.as_view(), name="cas_ng_login"
     ),

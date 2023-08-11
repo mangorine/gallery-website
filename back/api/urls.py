@@ -18,7 +18,7 @@ from api.views import (
 from django.urls import path
 
 urlpatterns = [
-    path("", getRoutes),
+    path("", getRoutes, name="api-routes"),
     path("galleries/", get_galleries),
     path("gallery/load", load_folder_into_gallery),
     path("gallery/gen_thumb", generate_thumbnails),
