@@ -8,7 +8,7 @@ jobs:
   test-dev:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build containers
         run: docker compose build
       - name: Start containers
@@ -18,7 +18,7 @@ jobs:
   test-prod:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build containers
         run: docker compose -f docker-compose-prod.yaml build
       - name: Start containers
@@ -28,8 +28,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install linter
         run: pip install black flake8 isort
       - name: Lint
-        run: black --check && flake8 --config .github/linters/.flake8 && isort --profile black
+        run: black . --check && isort . --profile black && flake8 . --config .github/linters/.flake8
