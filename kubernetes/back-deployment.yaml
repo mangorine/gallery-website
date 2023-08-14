@@ -1,0 +1,170 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bundles-pvc
+  namespace: galerie
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      storage-type: volumes-pv
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-pvc
+  namespace: galerie
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      storage-type: volumes-pv
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-pvc
+  namespace: galerie
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      storage-type: volumes-pv
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back
+  labels:
+    app: back
+  namespace: galerie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: back
+    spec:
+      containers:
+        - name: back
+          image: matthieuml/projects:v1.0.0-back
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          args:
+            - gunicorn
+            - galerie.wsgi:application
+            - --bind
+            - 0.0.0.0:8000
+          env:
+            - name: DB_HOST
+              value: "db-service"
+            - name: DB_NAME
+              valueFrom: 
+                configMapKeyRef:
+                  name: env-configmap
+                  key: db-name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: db-password
+            - name: DB_PORT
+              value: "5432"
+            - name: DEBUG
+              valueFrom: 
+                configMapKeyRef:
+                  name: env-configmap
+                  key: debug
+            - name: DOMAIN_NAME
+              valueFrom: 
+                configMapKeyRef:
+                  name: env-configmap
+                  key: domain-name
+            - name: GUNICORN_NB_WORKERS
+              valueFrom: 
+                configMapKeyRef:
+                  name: env-configmap
+                  key: gunicorn-nb-workers
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: secret-key
+            - name: SECURE_SSL_REDIRECT
+              valueFrom: 
+                configMapKeyRef:
+                  name: env-configmap
+                  key: secure-ssl-redirect
+            - name: TRUSTED_ORIGIN
+              valueFrom: 
+                configMapKeyRef:
+                  name: env-configmap
+                  key: trusted-origin
+          volumeMounts:
+            - mountPath: /src/galerie/static/react
+              name: bundles
+            - mountPath: /src/static
+              name: static-volume
+            - mountPath: /src/media
+              name: media-volume
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      volumes:
+        - name: bundles
+          persistentVolumeClaim:
+            claimName: bundles-pvc
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-pvc
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: media-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-service
+  labels:
+    app: back-service
+  namespace: galerie
+spec:
+  selector:
+      app: back
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

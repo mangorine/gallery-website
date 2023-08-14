@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: webinstaller
+  labels:
+    app: webinstaller
+  namespace: galerie
+spec:
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      labels:
+        app: webinstaller
+    spec:
+      containers:
+        - name: webinstaller
+          image: matthieuml/projects:v1.0.0-webinstaller
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /react
+              name: bundles
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Never
+      volumes:
+        - name: bundles
+          persistentVolumeClaim:
+            claimName: bundles-pvc
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 10

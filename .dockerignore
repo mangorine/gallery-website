@@ -1,0 +1,12 @@
+# Remove uneeded folders
+back/galerie/static/react/
+backups
+database
+kubernetes
+
+# Remove uneeded files
+.env
+.gitignore
+docker-compose-prod.yml
+docker-compose.yml
+READEME.md
