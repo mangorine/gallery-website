@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
     branches:
-      - kubernetes
+      - master
 jobs:
   test-dev:
     runs-on: ubuntu-latest

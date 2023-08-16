@@ -98,3 +98,12 @@ Concernant les volumes, les dossiers ```database/```, ```media/``` et ```backups
 L'ensemble des variables d'environnement sont contenus dans le fichier ```.env``` que l'on peut modifier à sa convenance.
 
 <ins>**NB :**</ins> Si la variable DB_PASSWORD est modifiée assurez-vous de supprimer le dossier ```database/``` car celui-ci ne sera pas recréé !
+
+### Intégration continue (CI)
+
+L'intégration continue est gérée par Github Actions. Lorsqu'un push est effectué sur la branche ```master```, l'ensemble des tests sont lancés. Si ceux-ci sont concluants, le commit est accepté.
+
+Afin d'éviter d'être rejeté par les tests de lint, il est possible d'utiliser les pre-commit hooks. Ceux-ci permettent de lancer les tests localement avant de push. Pour cela, il est nécessaire d'installer pre-commit, puis de lancer la commande suivante :
+```
+pre-commit run (--all)
+```
