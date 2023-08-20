@@ -294,7 +294,6 @@ def import_users(request):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def years(request):
     years = Year.objects.all().order_by("pk")
     serializer = YearSerializer(years, many=True)

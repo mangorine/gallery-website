@@ -22,7 +22,7 @@ services:
       - bundles:/src/galerie/static/react
       - ./backups:/backups
     ports:
-      - 127.0.0.1:$BACK_PORT:8000
+      - $BACK_PORT:8000
     depends_on:
       - db
       - webinstaller
