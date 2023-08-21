@@ -3,7 +3,11 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.shortcuts import render
 from django.urls import reverse
 
-from .settings import LOGIN_REDIRECT_URL, LOGIN_URL
+from .settings import LOGIN_REDIRECT_URL, LOGIN_URL, BASE_DIR
+
+from django.core.files.storage import FileSystemStorage
+
+from galerie.recognition import get_associated_pictures
 
 
 def root_redirect(request):
@@ -42,14 +46,23 @@ def gallery(request, slug=""):
     context = {"slug": slug}
     return render(request, "gallery.html", context)
 
-
 def galleries(request):
     return render(request, "galleries.html")
-
 
 def index(request):
     return render(request, "index.html")
 
-
 def material(request):
     return render(request, "material.html")
+
+def finder(request):
+    if request.method == "POST" and request.FILES["tronche"]:
+        file = request.FILES["tronche"]
+        fs = FileSystemStorage()
+        filename = fs.save(file.name, file)
+        uploaded_file_url = fs.url(filename)
+
+        print('test')
+        get_associated_pictures.delay(request.user.username, str(BASE_DIR) + uploaded_file_url)
+        
+    return render(request, "finder.html")

@@ -2,7 +2,7 @@ import os
 
 import galerie.loader as loader
 import galerie.settings as settings
-from api.models import File, Gallery, Year
+from api.models import File, Gallery, Year, Student, Face
 from api.serializers import (
     FileSerializer,
     GallerySerializer,
@@ -298,6 +298,15 @@ def years(request):
     years = Year.objects.all().order_by("pk")
     serializer = YearSerializer(years, many=True)
     return Response(serializer.data)
+
+@permission_classes([IsAuthenticated])
+@api_view(["GET"])
+def get_associated_pictures(request):
+    student = Student.objects.get(user=request.user)
+    files = []
+    for face in Face.objects.filter(student=student):
+        files.append(face.file)
+    return Response(FileSerializer(files, many=True).data)
 
 
 def read_users(file):

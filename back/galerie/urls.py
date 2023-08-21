@@ -29,6 +29,7 @@ urlpatterns = [
     path("", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
     path("gallery/<slug:slug>", views.gallery, name="gallery"),
+    path("finder/", views.finder, name="finder"),
     path("galleries/", views.galleries, name="galleries"),
     path("material/", views.material, name="material"),
     path("gestion/", include("gestion.urls")),

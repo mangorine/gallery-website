@@ -14,6 +14,7 @@ from api.views import (
     import_users,
     load_folder_into_gallery,
     years,
+    get_associated_pictures
 )
 from django.urls import path
 
@@ -33,4 +34,5 @@ urlpatterns = [
     path("import/", import_users),
     path("gallery/change_visibility/", change_visibility),
     path("years/", years),
+    path("associated_pics/", get_associated_pictures),
 ]
