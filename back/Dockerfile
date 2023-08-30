@@ -90,14 +90,14 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 RUN poetry install
 WORKDIR /src
 
-COPY . .
-
 # installation of netcat to check if db is up
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     netcat=1.10-46 \
     redis=5:6.0.16-1+deb11u2 \
     && rm -rf /var/lib/apt/lists/*
+
+COPY . .
 
 RUN sed -i 's/\r$//g' /src/entrypoint-prod.sh \
     && chmod +x /src/entrypoint-prod.sh
