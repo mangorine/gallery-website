@@ -7,6 +7,7 @@ from api.views import (
     delete_gallery,
     delete_pic,
     generate_thumbnails,
+    get_associated_pictures,
     get_galleries,
     get_gallery,
     get_pics,
@@ -14,7 +15,6 @@ from api.views import (
     import_users,
     load_folder_into_gallery,
     years,
-    get_associated_pictures
 )
 from django.urls import path
 

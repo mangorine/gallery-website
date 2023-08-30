@@ -16,7 +16,7 @@ class Promo(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(models2.User(), on_delete=models.PROTECT)
     promo = models.ForeignKey(Promo, on_delete=models.PROTECT)
-    #is_searching = models.BooleanField(default=False)
+    # is_searching = models.BooleanField(default=False)
 
 
 # TODO: Create a year model ?
@@ -77,9 +77,11 @@ class Reaction(models.Model):
 class Material(models.Model):
     name = models.CharField(max_length=1000)
 
+
 class Face(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     file = models.ForeignKey(File, on_delete=models.CASCADE)
+
 
 """
 class Teams(models.Model):
