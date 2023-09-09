@@ -115,6 +115,7 @@ def add_promo(request):
             username = debut.split(".")[0][0] + "." + debut.split(".")[1]
         else:
             username = debut
+            print(username)
         user, created = models2.User.objects.get_or_create(
             last_name=column[1],
             first_name=column[2],
