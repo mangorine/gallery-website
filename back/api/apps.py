@@ -20,7 +20,6 @@ class ApiConfig(AppConfig):
 
         @receiver(post_save, sender=User)
         def user_saved(sender, instance, created, **kwargs):
-            print("user saved")
             if created:
                 student = Student(user=instance, promo=Promo.objects.last())
                 student.save()

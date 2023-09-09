@@ -1,10 +1,14 @@
+import csv
+import io
 from api.models import Gallery
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from galerie.recognition import get_associated_pictures
-
+from django.contrib.auth.decorators import user_passes_test
+import api.models as models
+from django.contrib.auth import models as models2
 from .settings import BASE_DIR, LOGIN_REDIRECT_URL, LOGIN_URL
 
 
@@ -70,3 +74,60 @@ def finder(request):
         )
 
     return render(request, "finder.html")
+
+@user_passes_test(lambda u: u.is_superuser)
+def add_promo(request):
+    order = "nom, prénom, mail"
+    context = {
+        "order": order,
+    }
+    if request.method == "GET":
+        return render(request, "add_promo.html", context)
+    
+    if "file" in request.FILES:
+        csv_file = request.FILES["file"]
+    else:
+        context = {
+            "order": order,
+            "no_file": True,
+            "promo_not_added": True,
+        }
+        return render(request, "add_promo.html", context)
+
+    if not csv_file.name.endswith(".csv"):
+        context = {
+            "order": order,
+            "type_error": True,
+            "promo_not_added": True,
+        }
+        return render(request, "add_promo.html", context)
+    data_set = csv_file.read().decode("UTF-8")
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    students_not_added = []
+    for column in csv.reader(io_string, delimiter=";", quotechar="|"):
+        password = models2.User.objects.make_random_password()
+        debut = column[3].split("@")[0]
+        if len(debut.split(".")[1].split("-"))>1:
+            username=debut.split(".")[0][0]+"."+debut.split(".")[1]
+        else:
+            username=debut
+        user, created = models2.User.objects.get_or_create(
+            last_name=column[1],
+            first_name=column[2],
+            username=username,
+            email=column[3],
+        )
+        if created:
+            user.set_password(password)
+            user.save()
+        if not created:
+            students_not_added.append(
+                (column[2] + "." + column[1]).replace(" ", "-").lower()
+            )
+    context = {
+        "order": order,
+        "promo_added": True,
+        "students_not_added": students_not_added,
+    }
+    return render(request, "add_promo.html", context)
