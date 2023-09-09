@@ -11,22 +11,22 @@
         <button type="submit">Uploader</button>
     </form><br>
     {% if type_error %}
-    <strong>Erreur: le fichier doit être au format .csv .</strong><br><br>
+        <strong>Erreur: le fichier doit être au format .csv .</strong><br><br>
     {% endif %}
     {% if no_file %}
-    <strong>Erreur: Aucun fichier n'a été uploadé.</strong><br><br>
+        <strong>Erreur: Aucun fichier n'a été uploadé.</strong><br><br>
     {% endif %}
     {% if promo_not_added %}
-    <strong>La promotion n'a pas été ajoutée.</strong><br><br>
+        <strong>La promotion n'a pas été ajoutée.</strong><br><br>
     {% endif %}
     {% if promo_added %}
-    <strong>La promotion a été ajoutée.</strong><br><br>
+        <strong>La promotion a été ajoutée.</strong><br><br>
     {% endif %}
     {% if students_not_added %}
-    <p>Les étudiants suivants n'ont pas pu être ajoutés :</p>
-    {% for student in students_not_added %}
-    <li>{{student}}</li>
-    {% endfor %}
+        <p>Les étudiants suivants n'ont pas pu être ajoutés :</p>
+        {% for student in students_not_added %}
+            <li>{{student}}</li>
+        {% endfor %}
     {% endif %}
 </body>
 

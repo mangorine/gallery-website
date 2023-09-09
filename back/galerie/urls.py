@@ -47,7 +47,7 @@ urlpatterns = [
         django_cas_ng.views.LogoutView.as_view(),
         name="cas_ng_logout",
     ),
-    path('add_promo/', views.add_promo, name='add_promo'),
+    path("add_promo/", views.add_promo, name="add_promo"),
 ]
 
 if settings.DEBUG:

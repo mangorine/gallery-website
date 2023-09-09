@@ -1,14 +1,16 @@
 import csv
 import io
+
+import api.models as models
 from api.models import Gallery
+from django.contrib.auth import models as models2
+from django.contrib.auth.decorators import user_passes_test
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from galerie.recognition import get_associated_pictures
-from django.contrib.auth.decorators import user_passes_test
-import api.models as models
-from django.contrib.auth import models as models2
+
 from .settings import BASE_DIR, LOGIN_REDIRECT_URL, LOGIN_URL
 
 
@@ -75,6 +77,7 @@ def finder(request):
 
     return render(request, "finder.html")
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def add_promo(request):
     order = "nom, prénom, mail"
@@ -83,7 +86,7 @@ def add_promo(request):
     }
     if request.method == "GET":
         return render(request, "add_promo.html", context)
-    
+
     if "file" in request.FILES:
         csv_file = request.FILES["file"]
     else:
@@ -108,10 +111,10 @@ def add_promo(request):
     for column in csv.reader(io_string, delimiter=";", quotechar="|"):
         password = models2.User.objects.make_random_password()
         debut = column[3].split("@")[0]
-        if len(debut.split(".")[1].split("-"))>1:
-            username=debut.split(".")[0][0]+"."+debut.split(".")[1]
+        if len(debut.split(".")[1].split("-")) > 1:
+            username = debut.split(".")[0][0] + "." + debut.split(".")[1]
         else:
-            username=debut
+            username = debut
         user, created = models2.User.objects.get_or_create(
             last_name=column[1],
             first_name=column[2],
