@@ -295,7 +295,7 @@ def import_users(request):
 
 @api_view(["GET"])
 def years(request):
-    years = Year.objects.all().order_by("pk")
+    years = Year.objects.all().order_by("pk").reverse()
     serializer = YearSerializer(years, many=True)
     return Response(serializer.data)
 
