@@ -9,7 +9,6 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from galerie.recognition import get_associated_pictures
 
 from .settings import BASE_DIR, LOGIN_REDIRECT_URL, LOGIN_URL
 
@@ -61,21 +60,6 @@ def index(request):
 
 def material(request):
     return render(request, "material.html")
-
-
-def finder(request):
-    if request.method == "POST" and request.FILES["tronche"]:
-        file = request.FILES["tronche"]
-        fs = FileSystemStorage()
-        filename = fs.save(file.name, file)
-        uploaded_file_url = fs.url(filename)
-
-        print("test")
-        get_associated_pictures.delay(
-            request.user.username, str(BASE_DIR) + uploaded_file_url
-        )
-
-    return render(request, "finder.html")
 
 
 @user_passes_test(lambda u: u.is_superuser)
