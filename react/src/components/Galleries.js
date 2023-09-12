@@ -3,12 +3,11 @@ import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Container, Col } from 'react-bootstrap';
 import Cookies from 'js-cookie';
-import GalleryLink from './GalleryLink';
 import CustomNavbar from './Navbar'
 import {Select, MenuItem} from '@mui/material';
+import GalleryMosaic from './GalleryMosaic';
 
-export default function Gallery() {
-  const [galleriesComp, setGalleriesComp] = useState([]);
+export default function Gallery(props) {
   const [menuComponents, setMenuComponents] = useState([]);
   const [year, setYear] = useState('');
   const [result, setResult] = useState([]);
@@ -20,11 +19,13 @@ export default function Gallery() {
       'X-CSRFToken': Cookies.get('csrftoken')
     },
   };
+  console.log(props.view)
   useEffect(() => {
-    fetch('/api/galleries', requestOptions)
+    fetch('/api/get_view?view=' + props.view, requestOptions)
       .then(res => res.json())
       .then(
         (result) => {
+          setResult(result)
           fetch('/api/years', requestOptions)
             .then(res => res.json())
             .then(
@@ -40,28 +41,12 @@ export default function Gallery() {
                 console.log(error)
               }
             );
-          setResult(result)
         },
         (error) => {
           console.log(error)
         }
       );
   }, [])
-
-  useEffect(() => {
-    let galleriesTemp = []
-    let compTemp = []
-    for (const pic in result) {
-      if(result[pic].year == year)
-        galleriesTemp.push(result[pic])
-    }
-    galleriesTemp.forEach((gal, index) => {
-      compTemp.push(<GalleryLink key={gal.slug} link={'/gallery/' + gal.slug} sticker={gal.sticker_url} title={gal.name} />)
-    })
-    setGalleriesComp(compTemp)
-
-  }, [year])
-
 
   return (
       <>
@@ -72,22 +57,13 @@ export default function Gallery() {
           <Select style={{marginTop: '100px', marginBottom: '40px', width: '100%', padding:0, height: "40px"}} value={year} onChange={e =>
                 {
                     setYear(e.target.value)
-                }} label="Visiblité">
+                }} label="Année">
                     {menuComponents}
         </Select>
         </Col>
           </Row>
         </Container>
-
-        <Container fluid>
-          <Row>
-
-          </Row>
-          <Row className="g-1">
-
-              {galleriesComp}
-          </Row>
-        </Container>
+        <GalleryMosaic result={result} year={year}/>
       </>
     )
 }

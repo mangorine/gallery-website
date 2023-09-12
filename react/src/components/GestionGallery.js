@@ -23,8 +23,8 @@ export default function Gallery({props}){
     const [pics, setPics] = useState([]);
     const [name, setName] = useState('');
     const [addModalState, setaddModalState] = useState(false);
-
     const [visibility, setVisibility] = useState('privée');
+    const [view, setView] = useState('gallery');
 
     const cookie = Cookies.get('csrftoken')
 
@@ -141,6 +141,7 @@ export default function Gallery({props}){
                 (result) => {
                   setName(result.name)
                   setVisibility(result.visibility)
+                  setView(result.view)
                 },
                 (error) => {
                   console.log(error)
@@ -193,6 +194,27 @@ export default function Gallery({props}){
               }
           );
     }
+
+    const changeView = (view) => {
+      const visibilityOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': Cookies.get('csrftoken') },
+        body: JSON.stringify({ slug: gallery_slug, view: view})
+      };
+
+      fetch('/api/gallery/change_view/', visibilityOptions)
+            .then(res => res.json())
+            .then(
+              (result) => {
+                setVisibility(result.visibility)
+              },
+              (error) => {
+                console.log(error)
+              }
+          );
+    }
     return (
       <>
       <CustomNavbar/>
@@ -210,6 +232,14 @@ export default function Gallery({props}){
                   <MenuItem value={'privée'}>Privée</MenuItem>
                   <MenuItem value={'école'}>École</MenuItem>
                   <MenuItem value={'publique'}>Publique</MenuItem>
+                </Select>
+                <Select style={{padding:0, height: "40px"}}value={view} onChange={e =>
+              {
+                setView(e.target.value)
+                changeView(e.target.value)
+              }} label="Visiblité">
+                  <MenuItem value={'galerie'}>Galerie</MenuItem>
+                  <MenuItem value={'exposition'}>Exposition</MenuItem>
                 </Select>
               </span>
           </Stack>

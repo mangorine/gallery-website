@@ -29,6 +29,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("gallery/<slug:slug>", views.gallery, name="gallery"),
     path("galleries/", views.galleries, name="galleries"),
+    path("expositions/", views.expositions, name="expositions"),
     path("material/", views.material, name="material"),
     path("gestion/", include("gestion.urls")),
     path("api/", include("api.urls")),

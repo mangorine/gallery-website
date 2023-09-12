@@ -54,6 +54,10 @@ def galleries(request):
     return render(request, "galleries.html")
 
 
+def expositions(request):
+    return render(request, "expositions.html")
+
+
 def index(request):
     return render(request, "index.html")
 

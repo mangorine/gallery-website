@@ -45,6 +45,14 @@ class Gallery(models.Model):
     )
     year = models.ForeignKey(Year, on_delete=models.PROTECT, default=None)
 
+    class View(models.TextChoices):
+        GALLERY = "galerie"
+        EXPOSITION = "exposition"
+
+    view = models.CharField(
+        blank=False, default=View.GALLERY, choices=View.choices, max_length=20
+    )
+
     def can_user_access(self, user):
         if not user.is_authenticated and (
             not self.visibility == Gallery.Visibility.PUBLIC

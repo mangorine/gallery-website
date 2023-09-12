@@ -16,6 +16,7 @@ export default function Gallery(){
     const [description, setDescription] = useState('')
     const [visibility, setVisibility] = useState('privée')
     const [type, setType] = useState('photo')
+    const [view, setView] = useState('gallery')
     const [error, setError] = useState('')
 
     const requestOptions = {
@@ -39,7 +40,7 @@ export default function Gallery(){
           headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': Cookies.get('csrftoken') },
-            body: JSON.stringify({name: name, description: description, visibility: visibility,  type: type})
+            body: JSON.stringify({name: name, description: description, visibility: visibility,  type: type, view: view})
         };
         fetch('/api/galleries/create/', submitOptions)
               .then(res => res.json())
@@ -121,6 +122,10 @@ export default function Gallery(){
                 <Select className="add-modal-textfield" value={type} onChange={e => setType(e.target.value)} label="Type" fullWidth >
                   <MenuItem value={'photo'}>Photo</MenuItem>
                   <MenuItem value={'video'}>Vidéo</MenuItem>
+                </Select>
+                <Select className="add-modal-textfield" value={view} onChange={e => setView(e.target.value)} label="Type" fullWidth >
+                  <MenuItem value={'galerie'}>Galerie</MenuItem>
+                  <MenuItem value={'exposition'}>Exposition</MenuItem>
                 </Select>
                 <p style={{color: 'red'}}>{error}</p>
                 <Button className="add-modal-create-button" variant='outlined' color='secondary' onClick={onSubmit} fullWidth>Créer</Button>

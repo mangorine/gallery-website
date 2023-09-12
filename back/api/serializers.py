@@ -44,6 +44,7 @@ class GallerySerializer(serializers.ModelSerializer):
             "year",
             "sticker_url",
             "slug",
+            "view",
         ]
 
 
