@@ -16,7 +16,7 @@ export default function Gallery(){
     const [description, setDescription] = useState('')
     const [visibility, setVisibility] = useState('privée')
     const [type, setType] = useState('photo')
-    const [view, setView] = useState('gallery')
+    const [view, setView] = useState('galerie')
     const [error, setError] = useState('')
 
     const requestOptions = {
@@ -61,7 +61,7 @@ export default function Gallery(){
     useEffect(() => {
         let galleriesTemp = []
         let compTemp = []
-        fetch('/api/galleries', requestOptions)
+        fetch('/api/get_view', requestOptions)
               .then(res => res.json())
               .then(
                 (result) => {
