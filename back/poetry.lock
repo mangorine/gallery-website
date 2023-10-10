@@ -359,37 +359,6 @@ django = ">=3.0"
 pytz = "*"
 
 [[package]]
-name = "dlib"
-version = "19.24.2"
-description = "A toolkit for making real world machine learning and data analysis applications"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "face-recognition"
-version = "1.3.0"
-description = "Recognize faces from Python or from the command line"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-Click = ">=6.0"
-dlib = ">=19.7"
-face-recognition-models = ">=0.3.0"
-numpy = "*"
-Pillow = "*"
-
-[[package]]
-name = "face-recognition-models"
-version = "0.3.0"
-description = "Models used by the face_recognition package."
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "gunicorn"
 version = "21.2.0"
 description = "WSGI HTTP Server for UNIX"
@@ -886,7 +855,6 @@ files = [
 ]
 
 [metadata]
-<<<<<<< Updated upstream
 lock-version = "1.1"
 python-versions = "^3.9"
 content-hash = "1986c4105d36009d332a0dc01b83b911903d13ac3f0bfc28dbe1a99bc2189591"
@@ -909,9 +877,6 @@ django-cas-ng = []
 django-cors-headers = []
 django-environ = []
 djangorestframework = []
-dlib = []
-face-recognition = []
-face-recognition-models = []
 gunicorn = []
 idna = []
 kombu = []
@@ -933,8 +898,3 @@ tzdata = []
 urllib3 = []
 vine = []
 wcwidth = []
-=======
-lock-version = "2.0"
-python-versions = "3.11.6"
-content-hash = "b9a1691a48b02966fa9226627876cf321b5641b2acf5ec887896b869b9501cc4"
->>>>>>> Stashed changes

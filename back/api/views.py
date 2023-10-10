@@ -72,17 +72,57 @@ def getRoutes(request):
 
 
 @api_view(["GET"])
+def get_view(request):
+    if request.method == "GET":
+        galleries = Gallery.objects.all()
+        if not request.user.is_authenticated:
+            galleries = galleries.filter(visibility=Gallery.Visibility.PUBLIC)
+
+        if request.GET.get("view") is not None:
+            galleries = galleries.filter(view=request.GET.get("view"))
+
+        if request.user.is_authenticated and not request.user.is_superuser:
+            galleries = galleries.filter(
+                Q(visibility=Gallery.Visibility.PUBLIC)
+                | Q(visibility=Gallery.Visibility.SCHOOL)
+            )
+
+        galleries = galleries.order_by("-date")
+        serializer = GallerySerializer(galleries, many=True)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
 def get_galleries(request):
     if not request.user.is_authenticated:
         galleries = Gallery.objects.filter(
             visibility=Gallery.Visibility.PUBLIC
         ).order_by("-date")
     elif request.user.is_staff or request.user.is_superuser:
-        galleries = Gallery.objects.all().order_by("-date")
+        galleries = Gallery.objects.filter(view=Gallery.View.GALLERY).order_by("-date")
     else:
         galleries = Gallery.objects.filter(
             Q(visibility=Gallery.Visibility.SCHOOL)
-            | Q(visibility=Gallery.Visibility.PUBLIC)
+            | Q(visibility=Gallery.Visibility.PUBLIC) & Q(view=Gallery.View.GALLERY)
+        ).order_by("-date")
+    serializer = GallerySerializer(galleries, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def get_expositions(request):
+    if not request.user.is_authenticated:
+        galleries = Gallery.objects.filter(
+            visibility=Gallery.Visibility.PUBLIC
+        ).order_by("-date")
+    elif request.user.is_staff or request.user.is_superuser:
+        galleries = Gallery.objects.filter(view=Gallery.View.EXPOSITION).order_by(
+            "-date"
+        )
+    else:
+        galleries = Gallery.objects.filter(
+            Q(visibility=Gallery.Visibility.SCHOOL)
+            | Q(visibility=Gallery.Visibility.PUBLIC) & Q(view=Gallery.View.EXPOSITION)
         ).order_by("-date")
     serializer = GallerySerializer(galleries, many=True)
     return Response(serializer.data)
@@ -253,6 +293,18 @@ def change_visibility(request):
 
 
 @api_view(["POST"])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def change_view(request):
+    gallery = Gallery.objects.filter(slug=request.data["slug"])
+    if gallery.count() == 0:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    gallery = gallery[0]
+    gallery.view = request.data["view"]
+    gallery.save()
+    return Response(GallerySerializer(gallery).data)
+
+
+@api_view(["POST"])
 @permission_classes([IsAdminUser])
 def delete_gallery(request):
     gal = Gallery.objects.get(name=request.data["name"])
@@ -295,7 +347,7 @@ def import_users(request):
 
 @api_view(["GET"])
 def years(request):
-    years = Year.objects.all().order_by("pk")
+    years = Year.objects.all().order_by("pk").reverse()
     serializer = YearSerializer(years, many=True)
     return Response(serializer.data)
 

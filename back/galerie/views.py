@@ -9,7 +9,6 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from galerie.recognition import get_associated_pictures
 
 from .settings import BASE_DIR, LOGIN_REDIRECT_URL, LOGIN_URL
 
@@ -55,27 +54,16 @@ def galleries(request):
     return render(request, "galleries.html")
 
 
+def expositions(request):
+    return render(request, "expositions.html")
+
+
 def index(request):
     return render(request, "index.html")
 
 
 def material(request):
     return render(request, "material.html")
-
-
-def finder(request):
-    if request.method == "POST" and request.FILES["tronche"]:
-        file = request.FILES["tronche"]
-        fs = FileSystemStorage()
-        filename = fs.save(file.name, file)
-        uploaded_file_url = fs.url(filename)
-
-        print("test")
-        get_associated_pictures.delay(
-            request.user.username, str(BASE_DIR) + uploaded_file_url
-        )
-
-    return render(request, "finder.html")
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -114,7 +102,8 @@ def add_promo(request):
         if len(debut.split(".")[1].split("-")) > 1:
             username = debut.split(".")[0][0] + "." + debut.split(".")[1]
         else:
-            username = debut
+            username = debut.lower()
+            print(username)
         user, created = models2.User.objects.get_or_create(
             last_name=column[1],
             first_name=column[2],

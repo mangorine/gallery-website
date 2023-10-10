@@ -7,7 +7,16 @@ class YearAdmin(admin.ModelAdmin):
 
 
 class GalleryAdmin(admin.ModelAdmin):
-    list_display = ("name", "slug", "description", "date", "visibility", "type", "year")
+    list_display = (
+        "name",
+        "slug",
+        "description",
+        "date",
+        "visibility",
+        "type",
+        "year",
+        "view",
+    )
     ordering = ("date",)
 
 

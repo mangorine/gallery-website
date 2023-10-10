@@ -4,4 +4,4 @@ import { createRoot } from 'react-dom/client';
 
 const container = window.react_mount;
 const root = createRoot(container);
-root.render(<Galleries view='galerie'/>);
+root.render(<Galleries view='exposition'/>);
