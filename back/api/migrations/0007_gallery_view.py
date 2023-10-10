@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0006_face'),
+        ("api", "0006_face"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='gallery',
-            name='view',
-            field=models.CharField(choices=[('galerie', 'Gallery'), ('exposition', 'Exposition')], default='galerie', max_length=20),
+            model_name="gallery",
+            name="view",
+            field=models.CharField(
+                choices=[("galerie", "Gallery"), ("exposition", "Exposition")],
+                default="galerie",
+                max_length=20,
+            ),
         ),
     ]
