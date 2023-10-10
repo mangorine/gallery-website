@@ -1,8 +1,8 @@
 FROM node:17-alpine as node_base
 
-RUN mkdir /app && chown node /app && chmod 700 /app
-RUN mkdir /var/node_modules && chown node /var/node_modules
-RUN mkdir /react && chown node /react && chmod 700 /react
+RUN mkdir /app && chown node /app && chmod 700 /app \
+    && mkdir /var/node_modules && chown node /var/node_modules \
+    && mkdir /react && chown node /react && chmod 700 /react
 
 WORKDIR /app
 
