@@ -40,8 +40,6 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     # For checking when db is up
     netcat-traditional=1.10-47 \
-    # Install redis
-    redis=5:7.0.11-1 \
     # Add postgresql support
     python3-psycopg2=2.9.5-1+b1 \
     && rm -rf /var/lib/apt/lists/*
