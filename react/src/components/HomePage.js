@@ -34,7 +34,7 @@ export default function HomePage (){
                             <p>Respo Matos: Jonathan Remy</p>
                             <p>Respo Galeries: Kenji Chikhaoui</p>
                             <p>Vidéastes: Martin Barrault, Damien Galbrun, Léo Wang</p>
-                            <p>Photographes: Bastien Colleau, Albin Soleille, Gabriel Rogan, Hind Tanouti, Léa Woillez</p>
+                            <p>Photographes: Neil Benmouffok, Bastien Colleau, Albin Soleille, Gabriel Rogan, Hind Tanouti, Léa Woillez</p>
                         </div>
                     </Col>
                 </Row>
