@@ -4,12 +4,34 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_DB: $DB_NAME
-      POSTGRES_USER: $DB_USER
-      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    restart: always
     volumes:
       - ./database:/var/lib/postgresql/data
       - ./backups:/backups
+    networks:
+      - db_link
+    healthcheck:
+        test: pg_isready -U ${DB_USER}
+        interval: 5s
+        timeout: 3s
+        retries: 5
+
+  redis:
+    image: redis:7.2.2-bookworm
+    command: redis-server --save 60 1 --loglevel notice --requirepass ${REDIS_PASSWORD}
+    restart: always
+    volumes:
+      - cache:/data
+    networks:
+      - cache_link
+    healthcheck:
+        test: echo 'auth ${REDIS_PASSWORD}\nping' | redis-cli | grep PONG
+        interval: 5s
+        timeout: 3s
+        retries: 5
 
   back:
     build:
@@ -17,26 +39,33 @@ services:
       dockerfile: Dockerfile
       target: development
     command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./back:/src
-      - bundles:/src/galerie/static/react
-      - ./backups:/backups
     ports:
-      - $BACK_PORT:8000
-    depends_on:
-      - db
-      - webinstaller
-    links:
-      - db
+      - "$BACK_PORT:8000"
     environment:
-      DB_HOST: $DB_HOST
-      DB_PORT: $DB_PORT
-      DB_NAME: $DB_NAME
-      DB_USER: $DB_USER
-      DB_PASSWORD: $DB_PASSWORD
-      DEBUG: $DEBUG
-      DOMAIN_NAME: $DOMAIN_NAME
-      TRUSTED_ORIGIN: $TRUSTED_ORIGIN
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      DEBUG: ${DEBUG}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      TRUSTED_ORIGIN: ${TRUSTED_ORIGIN}
+    restart: always
+    volumes:
+      - bundles:/src/galerie/static/react
+      - ./back:/src
+      - ./backups:/backups
+    networks:
+      - db_link
+      - cache_link
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
 
   webinstaller:
     build:
@@ -48,5 +77,9 @@ services:
       - bundles:/react
 
 volumes:
+  cache:
   bundles:
-    driver: local
+
+networks:
+  cache_link:
+  db_link:

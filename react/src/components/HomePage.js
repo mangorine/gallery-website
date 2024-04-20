@@ -17,7 +17,7 @@ export default function HomePage (){
                 <a className="big-button" href="/galleries">Accéder aux galeries</a>
                 <a className="big-button ytb-btn" href="https://www.youtube.com/@ponthe-ecoledesponts7542">Voir notre chaine Youtube</a>
                 <a name="team"></a>
-                <span className="team-down"><KeyboardDoubleArrowDownIcon/>Ponthé 025<KeyboardDoubleArrowDownIcon/></span>
+                <span className="team-down"><KeyboardDoubleArrowDownIcon/>Ponthé 026<KeyboardDoubleArrowDownIcon/></span>
             </div>
             <Container fluid>
                 <Row>
@@ -27,16 +27,14 @@ export default function HomePage (){
                     <Col xs="12" sm="6" md="4" lg="4">
                         <div className="team-desc">
                             <h2>L'équipe</h2>
-                            <p>Président: Cyril Possard</p>
-                            <p>V-Prez Photo: Benjamin Pic</p>
-                            <p>V-Prez Vidéo: Loys Duponchel</p>
-                            <p>Respo Comm: Antoine De Solages</p>
-                            <p>Respo Matos: Quentin Laugier</p>
-                            <p>Respo Galeries: Alexandre Ducorroy</p>
-                            <p>Relations externes: Damien Galbrun</p>
-                            <p>Reltions internes/Trez: Paul Rosener</p>
-                            <p>Vidéastes: Guillaume Bieth, Erwann Estève, Raphael Moreaux, Gabriel Tang, Gautier Michel, Jean-Marie Sleiman</p>
-                            <p>Photographes: Bastien Lemée, Sixtine Nodet, Hugo Guastalla, Vincent Gefflaut, Mohammed Yacine Babi, Timothée Rigagneau, Barbara Quint</p>
+                            <p>Président: Paul Tritz-Heid</p>
+                            <p>V-Prez Photo: Aglaé Ténèze</p>
+                            <p>V-Prez Vidéo: Paulin Courbon</p>
+                            <p>Trez: Paul Saurin</p>
+                            <p>Respo Matos: Jonathan Remy</p>
+                            <p>Respo Galeries: Kenji Chikhaoui</p>
+                            <p>Vidéastes: Martin Barrault, Damien Galbrun, Léo Wang</p>
+                            <p>Photographes: Bastien Colleau, Albin Soleille, Gabriel Rogan, Hind Tanouti, Léa Woillez</p>
                         </div>
                     </Col>
                 </Row>
