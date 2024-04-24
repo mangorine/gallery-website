@@ -74,6 +74,23 @@ const PictureMosaic = (props) => {
           document.removeEventListener('click', handleClickOutside, true);
         };
       },[]);
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'ArrowRight') {
+                nextPicture()
+            } else if (event.key === 'ArrowLeft') {
+                previousPicture()
+            } else if (event.key === 'Escape') {
+                closeModal()
+            }
+        }
+        document.addEventListener('keydown', handleKeyDown, true);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown, true);
+        };
+    }, [current]);
+    
     const ref = useRef(null);
     const ref2 = useRef(null);
     const ref3 = useRef(null)
